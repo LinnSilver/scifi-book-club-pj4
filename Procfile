@@ -1,1 +1,1 @@
-web: gunicorn scifi-book-club.wsgi
+web: gunicorn scifi_book_club.wsgi
