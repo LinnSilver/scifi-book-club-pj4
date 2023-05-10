@@ -1,1 +1,1 @@
-web: gunicorn codestar.wsgi
+web: gunicorn book_club.wsgi
