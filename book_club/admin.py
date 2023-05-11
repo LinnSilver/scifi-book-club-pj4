@@ -1,8 +1,9 @@
 from django.contrib import admin
-from posts.models import Post
+from .models import Post
 
 
+@admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    pass  # This just tells Django to use the default settings.
-
-    admin.site.register(Post, PostAdmin)
+    list_display = ('title', 'slug', 'status', 'created_on')
+    search_fields = ['title', 'content']
+    prepopulated_fields = {'slug': ('title',)}
