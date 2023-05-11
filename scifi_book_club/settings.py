@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-9z^l2rwzsv%uv2ltdyz%vq#a^m!kbcc)$%qvh1eur=kj6!_b51
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['scifi-book-club.herokuapp.com', 'localhost']
 
 
 # Application definition
