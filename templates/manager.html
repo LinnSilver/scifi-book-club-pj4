@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <title>{{ page_title }}</title>
-</head>
+{% block content %}
 
-<body>
   <div class="hero">
     <section class="backgroundbox">
-        <h1><i<i class="fa-regular fa-dragon"></i> Sci Fi Book Club</h1>
+        <h1>Sci Fi Book Club</h1>
 
                   <!-- Top navigation -->
                   <nav>
@@ -38,8 +33,6 @@
 
     </section>
   </div>
-  <!--JavaScript-->
-  <script src="assets/js/script.js"></script>
-</body>
 
-</html>
+{% endblock %}
+  

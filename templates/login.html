@@ -1,43 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <title>{{ page_title }}</title>
-</head>
-
-<body>
-  <div class="hero">
-    <h1><i<i class="fa-regular fa-dragon"></i> Sci Fi Book Club</h1>
-
-                      <!-- Top navigation -->
-                      <nav>
-                        <a href="index.html" >Home</a>
-                        <a href="book.html">Book of the month</a>
-                        <a href="login.html" class="active_page">Login</a>
-                        <a href="manager.html">manager</a>
-                      </nav>
-
+{% block content %}
+<div class="hero">
     <section class="backgroundbox">
-      <div>
-        <h2><i class="fa-regular fa-square-check"></i> Log in</h2>
-        <nav><a href="signup.html">Or sign up</a></nav>
-        
-        <!-- Contact form -->
-        <form method="POST" action="https://formdump.codeinstitute.net">
-            <label for="name" class="required">Name</label>
-            <input id="name" name="name" type="text" required placeholder="Enter your urer name">
-            <label for="email" class="required">Email</label>
-            <input id="email" name="email" type="email" required placeholder="Your email">
-            <input id="contact_button" type="submit" value="Log in">
-          </form>
-        </ul>
-      </div>
 
+        <div>
+            <h2>Log in</h2>
+
+            <!-- login form -->
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Log In</button>
+            </form>
+            <nav><a href="{% url 'signup' %}">Or sign up</a></nav>
+        </div>
     </section>
-  </div>
-  <!--JavaScript-->
-  <script src="assets/js/script.js"></script>
-</body>
+</div>
+{% endblock %}
 
-</html>
+          <nav><a href="{% url 'signup' %}">Or sign up</a></nav>

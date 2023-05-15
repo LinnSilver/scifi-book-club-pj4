@@ -1,40 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <title>{{ page_title }}</title>
-</head>
+{% block content %}
 
-<body>
   <div class="hero">
     <section class="backgroundbox">
-      <h1><i<i class="fa-regular fa-dragon"></i> Sci Fi Book Club</h1>
-
-                  <!-- Top navigation -->
-                  <nav>
-                    <a href="index.html" >Home</a>
-                    <a href="book.html">Book of the month</a>
-                    <a href="login.html" class="active_page">Login</a>
-                    <a href="manager.html">manager</a>
-                  </nav>
 
       <div>
-        <h2><i class="fa-regular fa-square-check"></i> Sign up</h2>
-        <!-- signup form -->
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">Sign Up</button>
-        </form>
-        
-        </ul>
+        <h2>Sign up</h2>
+          <!-- signup form -->
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign Up</button>
+          </form>
+          <p><a href="{% url 'login' %}"></a>Or log in</p>
       </div>
 
     </section>
   </div>
-  <!--JavaScript-->
-  <script src="assets/js/script.js"></script>
-</body>
 
-</html>
+{% endblock %}
+  

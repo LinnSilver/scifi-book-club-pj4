@@ -1,4 +1,0 @@
-<ul>
-  <li><a href="{% url 'signup' %}">Sign Up</a></li>
-  <li><a href="{% url 'login' %}">Login</a></li>
-</ul>
