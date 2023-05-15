@@ -1,11 +1,18 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.views import View
 from .models import Book
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .forms import SignUpForm
+from django.contrib.auth.forms import AuthenticationForm
+from book_club import views
+from django.urls import path
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.forms import UserCreationForm
+
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 
 def index(request):
@@ -33,6 +40,15 @@ class BookListView(View):
 class UserLoginView(LoginView):
     template_name = 'login.html'
     success_url = reverse_lazy('index')
+    authentication_form = AuthenticationForm
+
+    def form_valid(self, form):
+        user = form.get_user()
+        login(self.request, user)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
     def post(self, request, *args, **kwargs):
         username = request.POST['username']
@@ -42,24 +58,27 @@ class UserLoginView(LoginView):
         if user is not None:
             login(request, user)
             # Redirect to a success page or do something else
-            return super().form_valid(form)  # If you want to redirect to the success_url
+            return super().form_valid(self.get_form())  # If you want to redirect to the success_url
         else:
             # Return an invalid login error message or redirect back to the login page with an error message
-            return super().form_invalid(form)  # If you want to redirect back to the login page
+            return super().form_invalid(self.get_form())  # If you want to redirect back to the login page
 
 
 def signup(request):
-    page_title = "Signup"
-    form = SignUpForm()
-
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')  # Redirect to the desired page after successful signup
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, 'Account created successfully!')
+            return redirect('index')
     else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'page_title': page_title, 'form': form})
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
+
 
 
 def manager(request):

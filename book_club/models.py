@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Book(models.Model):
@@ -13,8 +14,8 @@ class Book(models.Model):
     status = models.CharField(max_length=10, choices=(
         ('draft', 'Draft'),
         ('published', 'Published'),
-    ))
-    created_on = models.DateTimeField(auto_now_add=True)
+    ),  null=True)
+    created_on = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         if not self.slug:

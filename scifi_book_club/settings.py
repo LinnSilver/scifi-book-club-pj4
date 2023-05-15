@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
 
 import os
 import dj_database_url
@@ -27,6 +28,8 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-9z^l2rwzsv%uv2ltdyz%vq#a^m!kbcc)$%qvh1eur=kj6!_b51'
+
+LOGIN_REDIRECT_URL = reverse_lazy('index')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

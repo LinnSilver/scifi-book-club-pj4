@@ -1,6 +1,7 @@
 from django.contrib import admin
 from book_club.models import Post
 from django.contrib.auth.models import User, Group, Permission
+from .models import Book
 
 
 @admin.register(Post)
@@ -22,14 +23,17 @@ class GroupInline(admin.TabularInline):
     extra = 1
 
 
-# Register the User model with the admin site and include the inline classes:
+# Unregister the default UserAdmin class
 admin.site.unregister(User)
 
 
 @admin.register(User)
-class UserAdmin(admin.ModelAdmin):
+class CustomUserAdmin(admin.ModelAdmin):
     inlines = [PermissionInline, GroupInline]
 
 
 # Register Permission models with the admin site:
 admin.site.register(Permission)
+
+
+admin.site.register(Book)
