@@ -15,8 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from book_club.views import index, BookDetailsView, BookListView, UserLoginView, signup
+from book_club.views import BookDetailsView
+from book_club import views
+from django.contrib.auth.models import User
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index, name='index'),
+    path('signup/', signup, name='signup'),
+    path('signup/', views.signup, name='signup'),  # Update to use the correct view function
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('book/<int:book_id>/', BookDetailsView.as_view(), name='book_detail'),
+    path('books/', BookListView.as_view(), name='book_list'),
     path('', include('book_club.urls')),
 ]
