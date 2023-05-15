@@ -59,7 +59,7 @@ def signup(request):
             return redirect('index')  # Redirect to the desired page after successful signup
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'page_title': page_title}, {'form': form})
+    return render(request, 'signup.html', {'page_title': page_title, 'form': form})
 
 
 def manager(request):
