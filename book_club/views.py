@@ -4,6 +4,8 @@ from django.views import View
 from .models import Book
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from .forms import SignUpForm
+from django.shortcuts import render, redirect
 
 
 def index(request):
@@ -48,7 +50,16 @@ class UserLoginView(LoginView):
 
 def signup(request):
     page_title = "Signup"
-    return render(request, 'signup.html', {'page_title': page_title})
+    form = SignUpForm()
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')  # Redirect to the desired page after successful signup
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'page_title': page_title}, {'form': form})
 
 
 def manager(request):

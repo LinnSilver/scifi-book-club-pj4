@@ -21,7 +21,6 @@ from book_club import views
 from django.contrib.auth.models import User
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),

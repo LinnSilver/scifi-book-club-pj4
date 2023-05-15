@@ -22,18 +22,12 @@
       <div>
         <h2><i class="fa-regular fa-square-check"></i> Sign up</h2>
         <!-- Contact form -->
-        <form method="POST" action="https://formdump.codeinstitute.net">
-            <label for="name" class="required">Usar Name</label>
-            <input id="name" name="name" type="text" required placeholder="Enter a usar name">
-            <label for="email" class="required">Email</label>
-            <input id="email" name="email" type="email" required placeholder="Your email">
-
-            <label for="password" class="required">password</label>
-            <input id="password" name="password" type="password" required placeholder="Your password">
-            <label for="password2" class="required">password again</label>
-            <input id="password2" name="password2" type="password" required placeholder="Enter Your password again">
-            <input id="contact_button" type="submit" value="Sign up">
-          </form>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Sign Up</button>
+        </form>
+        
         </ul>
       </div>
 
