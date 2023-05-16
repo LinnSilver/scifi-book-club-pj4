@@ -13,11 +13,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
+from . models import Book
 
 
 def index(request):
     page_title = "Sci fi Book Club"
-    return render(request, 'index.html', {'page_title': page_title})
+    books = Book.objects.all()
+    latest_book = Book.objects.order_by('-id').first()
+    return render(request, 'index.html', {'books': books, 'latest_book': latest_book})
 
 
 def signup(request):

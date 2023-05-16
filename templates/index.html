@@ -10,8 +10,17 @@
       <h2 class="text-center">Book of the month</h2>
       <div class="row">
         <div class="col-sm-6">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+          <h1>Posts</h1>
+          <div>
+            {% if latest_book %}
+              <h2>{{ latest_book.title }}</h2>
+              <p>{{ latest_book.author }}</p>
+              <!-- Add more fields as needed -->
+            {% else %}
+                <p>No books available.</p>
+            {% endif %}
+        
+          </div>
         </div>
       </div>
     </div>
@@ -20,24 +29,15 @@
   <section id="reesent">
 
 
-      <h1>Posts</h1>
-      {% for post in posts %}
-        <h3>{{ post.title }}</h3>
-        <p>Book Title: {{ post.book_title }}</p>
-        <p>Book Author: {{ post.book_author }}</p>
-        <p>Book Description: {{ post.book_description }}</p>
-        <hr>
-      {% endfor %}
-
-    
-  
-
       <div class="container-mt5">
           <div class="row">
                       <div class="col-sm-6">
                         <h3>May</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+                        {% for book in books %}
+                        <h2>{{ book.title }}</h2>
+                        <p>{{ book.author }}</p>
+                        <!-- Add more fields as needed -->
+                        {% endfor %}
                       </div>
 
                 <div class="col-sm-3">
