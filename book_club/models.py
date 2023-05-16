@@ -5,30 +5,10 @@ from django.utils import timezone
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200, unique=True)
-    author = models.CharField(max_length=100)
-    description = models.TextField()
-    likes = models.ManyToManyField(User, related_name='liked_books', blank=True)
-    average_rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
-    slug = models.SlugField(max_length=50, unique=True, default='')
-    status = models.CharField(max_length=10, choices=(
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-    ),  null=True)
-    created_on = models.DateTimeField(default=timezone.now)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)  # Generate slug from the title if it's not provided
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.title
-
-
-class Post(models.Model):
-    title = models.CharField(max_length=200)
-    content = models.TextField()
+    title = models.CharField(max_length=200, null=False, blank=False)
+    book_title = models.CharField(max_length=200, null=False, blank=False)  # New field for book title
+    book_author = models.CharField(max_length=100, null=False, blank=False)  # New field for book author
+    book_description = models.TextField(null=False, blank=False)  # New field for book description
     slug = models.SlugField(max_length=50, unique=True)
     status = models.CharField(max_length=10, choices=(
         ('draft', 'Draft'),
@@ -38,3 +18,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)  # Generate slug from the title if it's not provided
+        super().save(*args, **kwargs)

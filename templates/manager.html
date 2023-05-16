@@ -18,17 +18,24 @@
         <h2>Manager site</h2>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, veniam. Officiis molestias explicabo iure minima esse perspiciatis nam. Nostrum saepe ad id velit cupiditate, exercitationem odio quidem nemo aliquam eius?</p>
         <!--Input field-->
-            <form method="POST" action="https://formdump.codeinstitute.net">
-                <label for="book_title" class="required">Book title</label>
-                <input id="book_title" name="title" type="text" required placeholder="Book title">
-                <label for="Auther" class="required">Auther</label>
-                <input id="Auther" name="auther" type="text" required placeholder="Book Auther">
- 
-                <label for="info" class="required">Information about the book</label>
-                <textarea id="info" name="info" cols="30" rows="10" required placeholder="Information about the book"></textarea>
-                <input id="contact_button" type="submit" value="Send">
-              </form>
-        </ul>
+        <h2>Create a Post</h2>
+          <form method="POST" action="{% url 'manage' %}">
+            {% csrf_token %}
+            <label for="title">Title:</label>
+            <input type="text" name="title" required>
+            <br>
+            <label for="book_title">Book Title:</label>
+            <input type="text" name="book_title" required>
+            <br>
+            <label for="book_author">Book Author:</label>
+            <input type="text" name="book_author" required>
+            <br>
+            <label for="book_description">Book Description:</label>
+            <textarea name="book_description" required></textarea>
+            <br>
+            <input type="submit" value="Create Post">
+          </form>
+        
       </div>
 
     </section>

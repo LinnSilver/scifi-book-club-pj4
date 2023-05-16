@@ -18,12 +18,19 @@
   </section>
   
   <section id="reesent">
-      <div>
-        <h2 class="text-center">Reesent books</h2>
-        <h3>Juny</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-      </div>
+
+
+      <h1>Posts</h1>
+      {% for post in posts %}
+        <h3>{{ post.title }}</h3>
+        <p>Book Title: {{ post.book_title }}</p>
+        <p>Book Author: {{ post.book_author }}</p>
+        <p>Book Description: {{ post.book_description }}</p>
+        <hr>
+      {% endfor %}
+
+    
+  
 
       <div class="container-mt5">
           <div class="row">

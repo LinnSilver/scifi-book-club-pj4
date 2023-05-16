@@ -1,14 +1,6 @@
 from django.contrib import admin
-from book_club.models import Post
 from django.contrib.auth.models import User, Group, Permission
 from .models import Book
-
-
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'status', 'created_on')
-    search_fields = ['title', 'content']
-    prepopulated_fields = {'slug': ('title',)}
 
 
 # Creates an inline class for managing user permissions:

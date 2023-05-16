@@ -6,7 +6,6 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .forms import SignUpForm
 from django.contrib.auth.forms import AuthenticationForm
-from book_club import views
 from django.urls import path
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import UserCreationForm
@@ -14,12 +13,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
-from django.shortcuts import redirect
 
 
 def index(request):
     page_title = "Sci fi Book Club"
-    views.my_view(request)  # Call the my_view function to add messages
     return render(request, 'index.html', {'page_title': page_title})
 
 
@@ -76,31 +73,27 @@ def manager(request):
     return render(request, 'manager.html', {'page_title': page_title})
 
 
-def book(request):
+class ManageView(View):
+    def get(self, request):
+        return render(request, 'manage.html')
+
+    def post(self, request):
+        title = request.POST.get('title')
+        book_title = request.POST.get('book_title')
+        book_author = request.POST.get('book_author')
+        book_description = request.POST.get('book_description')
+
+        # Create a new Book instance
+        book = Book.objects.create(
+            title=title,
+            book_title=book_title,
+            book_author=book_author,
+            book_description=book_description
+        )
+
+        return redirect('index')  # Redirect to the index page after creating the book
+
+
+def book_c(request):
     page_title = "Book club"
     return render(request, 'book.html', {'page_title': page_title})
-
-
-class BookDetailsView(View):
-    def get(self, request, book_id):
-        book = get_object_or_404(Book, id=book_id)
-        comments = book.comments.filter(approved=True).order_by("-created_on")
-        liked = False
-        if book.likes.filter(id=request.user.id).exists():
-            liked = True
-
-        return render(request, 'book_detail.html', {'book': book})
-
-
-class BookListView(View):
-    def get(self, request):
-        books = Book.objects.all()
-        return render(request, 'book_list.html', {'books': books})
-
-
-# view logic for messages
-def my_view(request):
-    messages.success(request, 'This is a success message.')
-    messages.warning(request, 'This is a warning message.')
-    messages.error(request, 'This is an error message.')
-    return render(request, 'index.html')
