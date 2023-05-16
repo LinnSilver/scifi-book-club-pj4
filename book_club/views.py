@@ -19,6 +19,7 @@ from django.shortcuts import redirect
 
 def index(request):
     page_title = "Sci fi Book Club"
+    views.my_view(request)  # Call the my_view function to add messages
     return render(request, 'index.html', {'page_title': page_title})
 
 
@@ -95,3 +96,11 @@ class BookListView(View):
     def get(self, request):
         books = Book.objects.all()
         return render(request, 'book_list.html', {'books': books})
+
+
+# view logic for messages
+def my_view(request):
+    messages.success(request, 'This is a success message.')
+    messages.warning(request, 'This is a warning message.')
+    messages.error(request, 'This is an error message.')
+    return render(request, 'index.html')

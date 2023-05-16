@@ -25,5 +25,6 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('book_club/', include('book_club.urls')),  # Update to include the book_club app URLs
+    path('book_club/', include('book_club.urls')),
+    path('my-view/', views.my_view, name='my_view'),
 ]
