@@ -13,6 +13,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 def index(request):
@@ -20,21 +22,20 @@ def index(request):
     return render(request, 'index.html', {'page_title': page_title})
 
 
-class BookDetailsView(View):
-    def get(self, request, book_id):
-        book = get_object_or_404(Book, id=book_id)
-        comments = book.comments.filter(approved=True).order_by("-created_on")
-        liked = False
-        if book.likes.filter(id=request.user.id).exists():
-            liked = True
-
-        return render(request, 'book_detail.html', {'book': book})
-
-
-class BookListView(View):
-    def get(self, request):
-        books = Book.objects.all()
-        return render(request, 'book_list.html', {'books': books})
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, 'Account created successfully!')
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
 
 
 class UserLoginView(LoginView):
@@ -64,21 +65,9 @@ class UserLoginView(LoginView):
             return super().form_invalid(self.get_form())  # If you want to redirect back to the login page
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.success(request, 'Account created successfully!')
-            return redirect('index')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
-
+def logout_view(request):
+    logout(request)
+    return redirect('index')
 
 
 def manager(request):
@@ -89,3 +78,20 @@ def manager(request):
 def book(request):
     page_title = "Book club"
     return render(request, 'book.html', {'page_title': page_title})
+
+
+class BookDetailsView(View):
+    def get(self, request, book_id):
+        book = get_object_or_404(Book, id=book_id)
+        comments = book.comments.filter(approved=True).order_by("-created_on")
+        liked = False
+        if book.likes.filter(id=request.user.id).exists():
+            liked = True
+
+        return render(request, 'book_detail.html', {'book': book})
+
+
+class BookListView(View):
+    def get(self, request):
+        books = Book.objects.all()
+        return render(request, 'book_list.html', {'books': books})
