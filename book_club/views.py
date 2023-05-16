@@ -10,7 +10,6 @@ from django.urls import path
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import UserCreationForm
 
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
 from . models import Book
@@ -21,6 +20,13 @@ def index(request):
     books = Book.objects.all()
     latest_book = Book.objects.order_by('-id').first()
     return render(request, 'index.html', {'books': books, 'latest_book': latest_book})
+
+
+# def book_c(request):
+def book_detail(request, book_id):
+    page_title = "Book club"
+    book = get_object_or_404(Book, id=book_id)
+    return render(request, 'book_detail.html', {'book': book, 'page_title': page_title})
 
 
 def signup(request):
@@ -97,6 +103,4 @@ class ManageView(View):
         return redirect('index')  # Redirect to the index page after creating the book
 
 
-def book_c(request):
-    page_title = "Book club"
-    return render(request, 'book.html', {'page_title': page_title})
+

@@ -4,21 +4,12 @@
 
   <div class="hero">
     <section class="backgroundbox">
-        <h1>Sci Fi Book Club</h1>
-
-                  <!-- Top navigation -->
-                  <nav>
-                    <a href="index.html" >Home</a>
-                    <a href="book.html">Book of the month</a>
-                    <a href="login.html">Login</a>
-                    <a href="manager.html" class="active_page">manager</a>
-                  </nav>
-
+       
       <div>
         <h2>Manager site</h2>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, veniam. Officiis molestias explicabo iure minima esse perspiciatis nam. Nostrum saepe ad id velit cupiditate, exercitationem odio quidem nemo aliquam eius?</p>
+
         <!--Input field-->
-        <h2>Create a Post</h2>
+        <h2>Add a new book</h2>
           <form method="POST" action="{% url 'manage' %}">
             {% csrf_token %}
             <label for="title">Title:</label>

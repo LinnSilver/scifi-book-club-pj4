@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<section id="main">
+    <!-- book_detail.html -->
+    <h2>{{ book.title }}</h2>
+    <p>Title:{{book.book_title}}</p>
+    <p>Author: {{ book.book_author }}</p>
+    <p>About: {{ book.book_description }}</p>
+    <p>Likes</p>
+    <p>Rating</p>
+</section>
+
+
+<section id="comment">
+  <div class="hero">
+    <section class="backgroundbox">
+      <div>
+        <h2>Leav a comment</h2>
+        <p>Wath did dyou think aboth this book?</p>
+          <!--Input field-->
+          <form method="POST" action="https://formdump.codeinstitute.net">
+              <textarea id="info" name="info" cols="30" rows="10" required placeholder="Comment"></textarea>
+              <input id="contact_button" type="submit" value="Send">
+          </form>
+      </div>
+    </section>
+  </div>
+</Section>
+
+{% endblock %}

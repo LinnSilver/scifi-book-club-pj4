@@ -26,7 +26,8 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('manager/', views.manager, name='manager'),
     path('manage/', views.ManageView.as_view(), name='manage'),
-    path('book_club/', views.book_c, name='book_club'),
+    # path('book_club/', views.book_c, name='book_club'),
+    path('book/<int:book_id>/', views.book_detail, name='book_detail'),
 ]
 
 """
