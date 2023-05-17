@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from .models import Book
 from django.contrib.auth.decorators import user_passes_test
-
+from .forms import BookForm
 
 
 def index(request):
@@ -23,6 +23,26 @@ def book_detail(request, book_id):
     page_title = "Book club"
     book = get_object_or_404(Book, id=book_id)
     return render(request, 'book_detail.html', {'book': book, 'page_title': page_title})
+
+
+def update_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('manager')
+    else:
+        form = BookForm(instance=book)
+
+    return render(request, 'update_book.html', {'form': form, 'book': book})
+
+
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    book.delete()
+    return redirect('index')
 
 
 def signup(request):
@@ -61,11 +81,11 @@ class UserLoginView(LoginView):
 
         if user is not None:
             login(request, user)
-            # Redirect to a success page or do something else
-            return super().form_valid(self.get_form())  # If you want to redirect to the success_url
+            # Return an success message and redirect page to success_url
+            return super().form_valid(self.get_form())  # Redirect to the success_url
         else:
-            # Return an invalid login error message or redirect back to the login page with an error message
-            return super().form_invalid(self.get_form())  # If you want to redirect back to the login page
+            # Return an invalid login error message and redirect back to the login page with an error message
+            return super().form_invalid(self.get_form())  # Redirect back to the login page
 
 
 def logout_view(request):
@@ -76,7 +96,16 @@ def logout_view(request):
 @permission_required('app_name.permission_name', login_url='/login/')
 def manager(request):
     page_title = "Manage book"
-    return render(request, 'manager.html', {'page_title': page_title})
+    books = Book.objects.order_by('created_on')  # Retrieve all books from the database
+    form = BookForm()  # Create an instance of the BookForm
+
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('manager')
+
+    return render(request, 'manager.html', {'page_title': page_title, 'books': books, 'form': form})
 
 
 # checks whether a user has the Superuser status

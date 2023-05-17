@@ -29,5 +29,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('manager/', views.manager, name='manager'),
     path('book/<int:book_id>/', views.book_detail, name='book_detail'),
+    path('book/update/<int:book_id>/', views.update_book, name='update_book'),
+    path('book/delete/<int:book_id>/', views.delete_book, name='delete_book'),
 
 ]

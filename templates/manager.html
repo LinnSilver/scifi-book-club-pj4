@@ -2,35 +2,30 @@
 
 {% block content %}
 
-  <div class="hero">
-    <section class="backgroundbox">
-       
-      <div>
-        <h2>Manager site</h2>
+<div class="hero">
+  <section class="backgroundbox">
+    <div>
+      <h2>Library site</h2>
 
-        <!--Input field-->
-        <h2>Add a new book</h2>
-          <form method="POST" action="{% url 'manager' %}">
-            {% csrf_token %}
-            <label for="title">Title:</label>
-            <input type="text" name="title" required>
-            <br>
-            <label for="book_title">Book Title:</label>
-            <input type="text" name="book_title" required>
-            <br>
-            <label for="book_author">Book Author:</label>
-            <input type="text" name="book_author" required>
-            <br>
-            <label for="book_description">Book Description:</label>
-            <textarea name="book_description" required></textarea>
-            <br>
-            <input type="submit" value="Create Post">
-          </form>
-        
-      </div>
+      <!-- Add a new book form -->
+      <h2>Add a new book</h2>
+      <form method="POST" action="{% url 'manager' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create Book">
+      </form>
 
-    </section>
-  </div>
+      <!-- List all books -->
+      <h2>All Books</h2>
+      <ul>
+        {% for book in books %}
+        <li>
+          <a href="{% url 'update_book' book.id %}">{{ book.title }} - {{ book.book_title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>
 
 {% endblock %}
-  
