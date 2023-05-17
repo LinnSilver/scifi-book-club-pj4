@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 my-auto form-container text-center rounded mx-auto my-2 py-2">
+            <h1>Error 505: HTTP method is not allowed</h1>
+            <h2>Somthing whent wrong.</h2>
+
+            <div>
+                <a href="{% url 'index' %}" class="">
+                    Back to the begining
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

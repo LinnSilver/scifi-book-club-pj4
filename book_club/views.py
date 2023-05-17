@@ -136,3 +136,19 @@ class ManagerView(View):
         )
 
         return redirect('index')  # Redirect to the index page after creating the book
+
+
+def page_not_found(request, exception):
+    return render(request, 'errors/404.html', status=404)
+
+
+def server_error(request):
+    return render(request, '500.html', status=500)
+
+
+def permission_denied(request, exception):
+    return render(request, '403.html', status=403)
+
+
+def method_not_allowed(request, exception):
+    return render(request, '405.html', status=405)

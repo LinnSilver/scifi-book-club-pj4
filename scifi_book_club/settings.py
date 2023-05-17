@@ -33,8 +33,7 @@ SECRET_KEY = 'django-insecure-9z^l2rwzsv%uv2ltdyz%vq#a^m!kbcc)$%qvh1eur=kj6!_b51
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = False
 ALLOWED_HOSTS = ['scifi-book-club.herokuapp.com', 'localhost']
 
 

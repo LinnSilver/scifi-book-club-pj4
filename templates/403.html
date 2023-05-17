@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 my-auto form-container text-center rounded mx-auto my-2 py-2">
+            <h1>Error 503: You dont have permission to access this content.</h1>
+            <h2>Somthing whent wrong.</h2>
+
+            <div>
+                <a href="{% url 'index' %}" class="">
+                    Back to the begining
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

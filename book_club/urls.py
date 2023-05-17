@@ -4,6 +4,8 @@ from .views import logout_view
 from .views import ManagerView
 from .views import manager
 from .views import LoginView
+from .views import handler404, handler500, handler403, handler405
+
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -12,3 +14,9 @@ urlpatterns = [
     path('manager/', manager, name='manager'),
     path('login/', LoginView.as_view(), name='login'),
 ]
+
+handler500 = 'book_klub.views.handler404'
+handler405 = 'book_klub.views.handler500'
+handler404 = 'book_klub.views.handler403'
+handler403 = 'book_klub.views.handler405'
+
