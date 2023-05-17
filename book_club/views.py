@@ -7,9 +7,11 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import logout
-from .models import Book
+from .models import Book, Comment
 from django.contrib.auth.decorators import user_passes_test
 from .forms import BookForm
+from .models import Comment
+from .forms import CommentForm
 
 
 def index(request):
@@ -22,12 +24,28 @@ def index(request):
 # checks whether a user has the Superuser status
 def is_superuser(user):
     return user.is_superuser
-    
+
 
 def book_detail(request, book_id):
     page_title = "Book club"
-    book = get_object_or_404(Book, id=book_id)
-    return render(request, 'book_detail.html', {'book': book, 'page_title': page_title})
+    book = get_object_or_404(Book, id=book_id) 
+    comments = Comment.objects.filter(book=book)
+    page_title = book.title
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.book = book
+            comment.save()
+            return redirect('book_detail', book_id=book_id)
+
+    else:
+        form = CommentForm()
+
+    return render(request, 'book_detail.html', {'book': book, 'comments': comments, 'form': form, 'page_title': page_title})
 
 
 @user_passes_test(is_superuser, login_url='/login/')
@@ -98,6 +116,22 @@ class UserLoginView(LoginView):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+@login_required
+def add_comment(request, book_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.book_id = book_id
+            comment.user = request.user
+            comment.save()
+            return redirect('book_detail', book_id=book_id)
+    else:
+        form = CommentForm()
+    
+    return redirect('book_detail', book_id=book_id) 
 
 
 @permission_required('app_name.permission_name', login_url='/login/')

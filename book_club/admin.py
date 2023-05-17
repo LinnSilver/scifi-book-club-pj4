@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group, Permission
 from .models import Book
+from .models import Comment
+
+
+admin.site.register(Comment)
 
 
 # Creates an inline class for managing user permissions:

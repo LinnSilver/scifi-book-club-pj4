@@ -1,16 +1,13 @@
+<!-- book_details.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-
-
 <section id="main">
-    <!-- book_detail.html -->
     <h2>{{ book.title }}</h2>
-    <p>Title:{{book.book_title}}</p>
+    <p>Title: {{ book.book_title }}</p>
     <p>Author: {{ book.book_author }}</p>
     <p>About: {{ book.book_description }}</p>
     <p>Likes</p>
-
 </section>
 
 <!-- Content for logged-in users -->
@@ -18,13 +15,46 @@
   {% if user.is_authenticated %}
     <div>
         <h2>Welcome, {{ user.username }}!</h2>
-        <p>Wath did you think aboth this book?</p>
-        <h2>Like to leav a comment?</h2>
-        <!--Input field-->
-        <form method="POST" action="https://formdump.codeinstitute.net">
-          <textarea id="info" name="info" cols="30" rows="10" required placeholder="Comment"></textarea>
-          <input id="contact_button" type="submit" value="Send">
+        <p>What did you think about this book?</p>
+        <h2>Like to leave a comment?</h2>
+        <form id="comment-form" method="post" action="{% url 'add_comment' book_id=book.id %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+        
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        
+        <script>
+          $(document).ready(function() {
+            $('#comment-form').submit(function(event) {
+              event.preventDefault(); // Prevent the form from submitting normally
+        
+              var form = $(this);
+              var url = form.attr('action');
+              var formData = form.serialize();
+        
+              // Submit the form using AJAX
+              $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                success: function(response) {
+                  // Reload the page after successful submission
+                  location.reload();
+                },
+                error: function(xhr) {
+                  // Handle errors and display an error message
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'An error occurred while submitting the comment. Please try again.',
+                  });
+                }
+              });
+            });
+          });
+        </script>
+        
     </div>
     <div>
       <p>Rating</p>
@@ -32,10 +62,8 @@
   {% else %}
     <div>
         <!-- Content for non-logged-in users -->
-        <p>Please log in to leav a comment.</p>
+        <p>Please log in to leave a comment.</p>
     </div>
   {% endif %}
-
-</Section>
-
+</section>
 {% endblock %}

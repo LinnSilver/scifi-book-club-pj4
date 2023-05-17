@@ -18,6 +18,8 @@ from django.contrib.auth.decorators import user_passes_test
 from django.urls import path
 from book_club import views
 from django.contrib.auth import get_user_model
+from book_club.views import add_comment
+
 
 User = get_user_model()
 
@@ -31,5 +33,6 @@ urlpatterns = [
     path('book/<int:book_id>/', views.book_detail, name='book_detail'),
     path('book/update/<int:book_id>/', views.update_book, name='update_book'),
     path('book/delete/<int:book_id>/', views.delete_book, name='delete_book'),
+    path('add_comment/<int:book_id>/', add_comment, name='add_comment'),
 
 ]
