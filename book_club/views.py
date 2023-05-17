@@ -1,18 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.views import View
-from .models import Book
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from .forms import SignUpForm
-from django.contrib.auth.forms import AuthenticationForm
-from django.urls import path
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import logout
-from . models import Book
+from .models import Book
+from django.contrib.auth.decorators import user_passes_test
+
 
 
 def index(request):
@@ -22,7 +19,6 @@ def index(request):
     return render(request, 'index.html', {'books': books, 'latest_book': latest_book})
 
 
-# def book_c(request):
 def book_detail(request, book_id):
     page_title = "Book club"
     book = get_object_or_404(Book, id=book_id)
@@ -77,14 +73,24 @@ def logout_view(request):
     return redirect('index')
 
 
+@permission_required('app_name.permission_name', login_url='/login/')
 def manager(request):
     page_title = "Manage book"
     return render(request, 'manager.html', {'page_title': page_title})
 
 
-class ManageView(View):
+# checks whether a user has the Superuser status
+def is_superuser(user):
+    return user.is_superuser
+
+
+@user_passes_test(is_superuser, login_url='/login/')
+class ManagerView(View):
     def get(self, request):
-        return render(request, 'manage.html')
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            messages.error(request, 'You need to be logged in as a librarian to access this page.')
+            return redirect('login')
+        return render(request, 'manager.html')
 
     def post(self, request):
         title = request.POST.get('title')
@@ -101,6 +107,3 @@ class ManageView(View):
         )
 
         return redirect('index')  # Redirect to the index page after creating the book
-
-
-

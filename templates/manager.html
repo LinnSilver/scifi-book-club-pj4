@@ -10,7 +10,7 @@
 
         <!--Input field-->
         <h2>Add a new book</h2>
-          <form method="POST" action="{% url 'manage' %}">
+          <form method="POST" action="{% url 'manager' %}">
             {% csrf_token %}
             <label for="title">Title:</label>
             <input type="text" name="title" required>
