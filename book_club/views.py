@@ -19,12 +19,18 @@ def index(request):
     return render(request, 'index.html', {'books': books, 'latest_book': latest_book})
 
 
+# checks whether a user has the Superuser status
+def is_superuser(user):
+    return user.is_superuser
+    
+
 def book_detail(request, book_id):
     page_title = "Book club"
     book = get_object_or_404(Book, id=book_id)
     return render(request, 'book_detail.html', {'book': book, 'page_title': page_title})
 
 
+@user_passes_test(is_superuser, login_url='/login/')
 def update_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
 
@@ -39,6 +45,7 @@ def update_book(request, book_id):
     return render(request, 'update_book.html', {'form': form, 'book': book})
 
 
+@user_passes_test(is_superuser, login_url='/login/')
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     book.delete()
@@ -106,11 +113,6 @@ def manager(request):
             return redirect('manager')
 
     return render(request, 'manager.html', {'page_title': page_title, 'books': books, 'form': form})
-
-
-# checks whether a user has the Superuser status
-def is_superuser(user):
-    return user.is_superuser
 
 
 @user_passes_test(is_superuser, login_url='/login/')
