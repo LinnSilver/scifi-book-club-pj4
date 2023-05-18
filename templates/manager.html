@@ -2,30 +2,34 @@
 
 {% block content %}
 
-<div class="hero">
-  <section class="backgroundbox">
-    <div>
-      <h2>Library site</h2>
+<div class="container-fluid">
+  <div class="row">
+    <section class="backgroundbox">
+      <div class="hero"></div>
 
-      <!-- Add a new book form -->
-      <h2>Add a new book</h2>
-      <form method="POST" action="{% url 'manager' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" value="Create Book" class="btn btn-primary">Create Book</button>
-      </form>
+          <h2>Library site</h2>
 
-      <!-- List all books -->
-      <h2>All Books</h2>
-      <ul>
-        {% for book in books %}
-        <li>
-          <a href="{% url 'update_book' book.id %}">{{ book.title }} - {{ book.book_title }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </section>
+          <!-- Add a new book form -->
+          <h2>Add a new book</h2>
+          <form method="POST" action="{% url 'manager' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" value="Create Book" class="btn btn-primary">Create Book</button>
+          </form>
+
+          <!-- List all books -->
+          <h2>All Books</h2>
+          <ul>
+            {% for book in books %}
+            <li>
+              <a href="{% url 'update_book' book.id %}">{{ book.title }} - {{ book.book_title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+      </div>
+    </section>
 </div>
+</div>
+
 
 {% endblock %}

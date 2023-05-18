@@ -2,21 +2,24 @@
 
 {% block content %}
 
-<div class="hero">
-    <section class="backgroundbox">
-
-        <div>
-            <h2>Log in</h2>
-
-            <!-- login form -->
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Log In</button>
-            </form>
-            <nav><a href="{% url 'signup' %}">Or sign up</a></nav>
-        </div>
-    </section>
+<div class="container-fluid">
+    <div class="row">
+        <section class="backgroundbox">
+            <div class="hero">
+                <div>
+                    <h2>Log in</h2>
+                    <!-- login form -->
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Log In</button>
+                    </form>
+                    <nav><a href="{% url 'signup' %}">Or sign up</a></nav>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
+
 {% endblock %}
 

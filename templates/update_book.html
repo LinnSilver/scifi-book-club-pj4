@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <h2>Update Book</h2>
+    <form method="POST" action="{% url 'update_book' book.id %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
 
-<h2>Update Book</h2>
-<form method="POST" action="{% url 'update_book' book.id %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Update</button>
-</form>
-
-<!-- Delete book form -->
-<form method="POST" action="{% url 'delete_book' book.id %}">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-danger">Delete</button>
-</form>
+    <!-- Delete book form -->
+    <form method="POST" action="{% url 'delete_book' book.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+  </div>
+</div>
 
 {% endblock %}

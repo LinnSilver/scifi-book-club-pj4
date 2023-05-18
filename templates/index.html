@@ -1,46 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <p>This book club is for you who love classic sci fi books. Log in and get started now we're aiming for the stars.</p>
+    <h2 class="text-center">Book of the month</h2>
+    <!--
+      <section id="main">
+        <div class="container lg">
+          <h2 class="text-center">Book of the month</h2>
 
-<p>This book club is for you who love classic sci fi books. Log in and get started now we're aiming for the stars.</p>
-<h2 class="text-center">Book of the month</h2>
-<!--
-  <section id="main">
-    <div class="container lg">
-      <h2 class="text-center">Book of the month</h2>
-
-        <div class="col-sm-6">
-          <h1>Right now!</h1>
-            <div>
-              {% if latest_book %}
-                <h2>{{ latest_book.title }}</h2>
-                <p>Title: {{ latest_book.book_title }}</p>
-                <p>Author: {{ latest_book.book_author }}</p>
-              {% else %}
-                  <p>No books available.</p>
-              {% endif %}
-            </div>
-        </div>
-
-    </div>
-  </section>
-  -->
-  <section id="reesent">
-    <div class="container-mt5">
-      <div class="row">
             <div class="col-sm-6">
-              {% for book in books %}
-                <a href="{% url 'book_detail' book.id %}">
-                    <h2>{{ book.title }}</h2>
-                    <p>Title:{{book.book_title}}</p>
-                    <p>Author: {{ book.book_author }}</p>
-                    <!-- ... -->
-                </a>
-              {% empty %}
-                <p>No books available.</p>
-              {% endfor %}
+              <h1>Right now!</h1>
+                <div>
+                  {% if latest_book %}
+                    <h2>{{ latest_book.title }}</h2>
+                    <p>Title: {{ latest_book.book_title }}</p>
+                    <p>Author: {{ latest_book.book_author }}</p>
+                  {% else %}
+                      <p>No books available.</p>
+                  {% endif %}
+                </div>
             </div>
-      </div>
-    </div>
-  </section>
+
+        </div>
+      </section>
+      -->
+      <section id="reesent">
+        <div class="container-mt5">
+          <div class="row">
+                <div class="col-sm-6">
+                  {% for book in books %}
+                    <a href="{% url 'book_detail' book.id %}">
+                        <h2>{{ book.title }}</h2>
+                        <p>Title:{{book.book_title}}</p>
+                        <p>Author: {{ book.book_author }}</p>
+                        <!-- ... -->
+                    </a>
+                  {% empty %}
+                    <p>No books available.</p>
+                  {% endfor %}
+                </div>
+          </div>
+        </div>
+      </section>
+  </div>
+</div>
+
 {% endblock %}
