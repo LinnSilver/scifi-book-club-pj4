@@ -68,7 +68,9 @@ def delete_book(request, book_id):
     book.delete()
     return redirect('index')
 
-
+#####
+# Log in and out
+#####
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -117,14 +119,18 @@ def logout_view(request):
     return redirect('index')
 
 
+#####
+# Comments
+#####
 @login_required
 def add_comment(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.book_id = book_id
-            comment.user = request.user.username  # Set the user to the logged-in user's username
+            comment.user = request.user  # Set the user to the logged-in user's username
             comment.save()
             return redirect('book_detail', book_id=book_id)
     else:
@@ -145,6 +151,9 @@ def delete_comment(request, comment_id):
     return redirect('book_detail', book_id=comment.book.id)
 
 
+#####
+# 
+#####
 @permission_required('app_name.permission_name', login_url='/login/')
 def manager(request):
     page_title = "Manage book"
@@ -185,6 +194,9 @@ class ManagerView(View):
         return redirect('index')  # Redirect to the index page after creating the book
 
 
+#####
+# Errors
+#####
 def page_not_found(request, exception):
     return render(request, 'errors/404.html', status=404)
 
