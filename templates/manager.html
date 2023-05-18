@@ -12,7 +12,7 @@
       <form method="POST" action="{% url 'manager' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Create Book">
+        <button type="submit" value="Create Book" class="btn btn-primary">Create Book</button>
       </form>
 
       <!-- List all books -->

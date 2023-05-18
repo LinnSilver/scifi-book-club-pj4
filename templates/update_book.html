@@ -6,13 +6,13 @@
 <form method="POST" action="{% url 'update_book' book.id %}">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="Update">
+  <button type="submit" class="btn btn-primary">Update</button>
 </form>
 
 <!-- Delete book form -->
 <form method="POST" action="{% url 'delete_book' book.id %}">
   {% csrf_token %}
-  <input type="submit" value="Delete">
+  <button type="submit" class="btn btn-danger">Delete</button>
 </form>
 
 {% endblock %}
