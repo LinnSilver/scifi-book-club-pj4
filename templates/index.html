@@ -3,7 +3,8 @@
 {% block content %}
 
 <p>This book club is for you who love classic sci fi books. Log in and get started now we're aiming for the stars.</p>
-
+<h2 class="text-center">Book of the month</h2>
+<!--
   <section id="main">
     <div class="container lg">
       <h2 class="text-center">Book of the month</h2>
@@ -23,13 +24,12 @@
 
     </div>
   </section>
-  
+  -->
   <section id="reesent">
     <div class="container-mt5">
       <div class="row">
             <div class="col-sm-6">
-              <h3>April</h3>
-              {% for book in books reversed %}
+              {% for book in books %}
                 <a href="{% url 'book_detail' book.id %}">
                     <h2>{{ book.title }}</h2>
                     <p>Title:{{book.book_title}}</p>

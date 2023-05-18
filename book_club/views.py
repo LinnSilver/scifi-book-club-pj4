@@ -15,7 +15,7 @@ from .forms import CommentForm
 
 def index(request):
     page_title = "Sci fi Book Club"
-    books = Book.objects.all()
+    books = Book.objects.order_by('-created_on')
     latest_book = Book.objects.order_by('-id').first()
     return render(request, 'index.html', {'books': books, 'latest_book': latest_book})
 
@@ -24,49 +24,6 @@ def index(request):
 def is_superuser(user):
     return user.is_superuser
 
-
-def book_detail(request, book_id):
-    page_title = "Book club"
-    book = get_object_or_404(Book, id=book_id) 
-    comments = Comment.objects.filter(book=book)
-    page_title = book.title
-    form = CommentForm()
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user
-            comment.book = book
-            comment.save()
-            return redirect('book_detail', book_id=book_id)
-
-    else:
-        form = CommentForm()
-
-    return render(request, 'book_detail.html', {'book': book, 'comments': comments, 'form': form, 'page_title': page_title})
-
-
-@user_passes_test(is_superuser, login_url='/login/')
-def update_book(request, book_id):
-    book = get_object_or_404(Book, id=book_id)
-
-    if request.method == 'POST':
-        form = BookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect('manager')
-    else:
-        form = BookForm(instance=book)
-
-    return render(request, 'update_book.html', {'form': form, 'book': book})
-
-
-@user_passes_test(is_superuser, login_url='/login/')
-def delete_book(request, book_id):
-    book = get_object_or_404(Book, id=book_id)
-    book.delete()
-    return redirect('index')
 
 #####
 # Log in and out
@@ -120,44 +77,12 @@ def logout_view(request):
 
 
 #####
-# Comments
-#####
-@login_required
-def add_comment(request, book_id):
-    book = get_object_or_404(Book, pk=book_id)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.book_id = book_id
-            comment.user = request.user  # Set the user to the logged-in user's username
-            comment.save()
-            return redirect('book_detail', book_id=book_id)
-    else:
-        form = CommentForm()
-
-    return redirect('book_detail', book_id=book_id)
-
-
-@login_required
-def delete_comment(request, comment_id):
-    comment = get_object_or_404(Comment, id=comment_id)
-
-    # Check if the logged-in user is the owner of the comment
-    if comment.user == request.user:
-        comment.delete()
-        return redirect('book_detail', book_id=comment.book.id)
-
-    return redirect('book_detail', book_id=comment.book.id)
-
-
-#####
-# 
+# Books
 #####
 @permission_required('app_name.permission_name', login_url='/login/')
 def manager(request):
     page_title = "Manage book"
-    books = Book.objects.order_by('created_on')  # Retrieve all books from the database
+    books = Book.objects.order_by('-created_on')  # Retrieve all books from the database
     form = BookForm()  # Create an instance of the BookForm
 
     if request.method == 'POST':
@@ -192,6 +117,82 @@ class ManagerView(View):
         )
 
         return redirect('index')  # Redirect to the index page after creating the book
+
+
+def book_detail(request, book_id):
+    page_title = "Book club"
+    book = get_object_or_404(Book, id=book_id) 
+    comments = Comment.objects.filter(book=book)
+    page_title = book.title
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.book = book
+            comment.save()
+            return redirect('book_detail', book_id=book_id)
+
+    else:
+        form = CommentForm()
+
+    return render(request, 'book_detail.html', {'book': book, 'comments': comments, 'form': form, 'page_title': page_title})
+
+
+@user_passes_test(is_superuser, login_url='/login/')
+def update_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('manager')
+    else:
+        form = BookForm(instance=book)
+
+    return render(request, 'update_book.html', {'form': form, 'book': book})
+
+
+@user_passes_test(is_superuser, login_url='/login/')
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    book.delete()
+    return redirect('index')
+
+
+#####
+# Comments
+#####
+@login_required
+def add_comment(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.book_id = book_id
+            comment.user = request.user  # Set the user to the logged-in user's username
+            comment.save()
+            return redirect('book_detail', book_id=book_id)
+    else:
+        form = CommentForm()
+
+    return redirect('book_detail', book_id=book_id)
+
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    # Check if the logged-in user is the owner of the comment
+    if comment.user == request.user:
+        comment.delete()
+        return redirect('book_detail', book_id=comment.book.id)
+
+    return redirect('book_detail', book_id=comment.book.id)
 
 
 #####
