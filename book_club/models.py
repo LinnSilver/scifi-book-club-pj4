@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.utils.crypto import get_random_string
 
 
 class Book(models.Model):
@@ -22,7 +23,13 @@ class Book(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)  # Generate slug from the title if it's not provided
+            base_slug = slugify(self.title)
+            unique_slug = base_slug
+            num = 1
+            while Book.objects.filter(slug=unique_slug).exists():
+                unique_slug = f'{base_slug}-{num}'
+                num += 1
+            self.slug = unique_slug
         super().save(*args, **kwargs)
 
 
