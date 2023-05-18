@@ -7,10 +7,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import logout
-from .models import Book, Comment
 from django.contrib.auth.decorators import user_passes_test
+from .models import Book, Comment
 from .forms import BookForm
-from .models import Comment
 from .forms import CommentForm
 
 
@@ -125,13 +124,25 @@ def add_comment(request, book_id):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.book_id = book_id
-            comment.user = request.user
+            comment.user = request.user.username  # Set the user to the logged-in user's username
             comment.save()
             return redirect('book_detail', book_id=book_id)
     else:
         form = CommentForm()
-    
-    return redirect('book_detail', book_id=book_id) 
+
+    return redirect('book_detail', book_id=book_id)
+
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    # Check if the logged-in user is the owner of the comment
+    if comment.user == request.user:
+        comment.delete()
+        return redirect('book_detail', book_id=comment.book.id)
+
+    return redirect('book_detail', book_id=comment.book.id)
 
 
 @permission_required('app_name.permission_name', login_url='/login/')

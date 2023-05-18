@@ -19,6 +19,7 @@ from django.urls import path
 from book_club import views
 from django.contrib.auth import get_user_model
 from book_club.views import add_comment
+from book_club.views import delete_comment
 
 
 User = get_user_model()
@@ -34,5 +35,6 @@ urlpatterns = [
     path('book/update/<int:book_id>/', views.update_book, name='update_book'),
     path('book/delete/<int:book_id>/', views.delete_book, name='delete_book'),
     path('add_comment/<int:book_id>/', add_comment, name='add_comment'),
+    path('delete_comment/<int:comment_id>/', delete_comment, name='delete_comment'),
 
 ]

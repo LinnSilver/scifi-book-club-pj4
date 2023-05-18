@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 
 
 class Book(models.Model):
@@ -26,19 +27,14 @@ class Book(models.Model):
 
 
 class Comment(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE,
-                             related_name="comments")
-    name = models.CharField(max_length=200)
-    body = models.TextField()
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    content = models.TextField(null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"Comment {self.body} by {self.name}"
+        return f"{self.user.username} says: {self.content}"
 
-# class Comment(models.Model):
-#    user = models.ForeignKey(User, on_delete=models.CASCADE)
-#    book = models.ForeignKey(Book, on_delete=models.CASCADE)  # Assuming you have a Book model
-#    info = models.TextField()

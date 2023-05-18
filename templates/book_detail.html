@@ -59,11 +59,31 @@
     <div>
       <p>Rating</p>
     </div>
+
+    <section id="comments">
+    <div>
+      <h2>Comments:</h2>
+      {% for comment in comments reversed %}
+        <div>
+          <p>{{ comment.user.username }} says:</p>
+          <p>{{ comment.content }}</p>
+          {% if user.is_authenticated and user == comment.user %}
+            <form method="post" action="{% url 'delete_comment' comment_id=comment.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          {% endif %}
+        </div>
+      {% empty %}
+        <p>No comments yet.</p>
+      {% endfor %}
+    </div>
   {% else %}
     <div>
         <!-- Content for non-logged-in users -->
         <p>Please log in to leave a comment.</p>
     </div>
   {% endif %}
+  </section>
 </section>
 {% endblock %}

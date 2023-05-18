@@ -1,14 +1,27 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.db import models
 from .models import Book
 from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea)
+
     class Meta:
         model = Comment
-        fields = ['body']
+        fields = ('content',)
+
+    def save(self, commit=True, **kwargs):
+        comment = super().save(commit=False)
+        if 'user' in kwargs:
+            comment.user = kwargs['user']
+        if commit:
+            comment.save()
+        return comment
+
+
         # widgets = {
         #    'info': forms.Textarea(attrs={'placeholder': 'Comment'}),
         # }
