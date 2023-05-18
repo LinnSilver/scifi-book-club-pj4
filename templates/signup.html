@@ -3,27 +3,22 @@
 {% block content %}
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="container-fluid">
-      <div class="row">
-        <section class="backgroundbox">
-
-          <div>
-            <h2>Sign up</h2>
-                <!-- signup form -->
-                <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Sign Up</button>
-
-              <p><a href="{% url 'login' %}">Or Login</a></p>
-          </div>
-
-        </section>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <div class="text-center">
+        <h2>Sign up</h2>
+        <!-- signup form -->
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+        <p class="mt-3"><a href="{% url 'login' %}">Or Login</a></p>
       </div>
     </div>
   </div>
 </div>
+
 
 {% endblock %}
   

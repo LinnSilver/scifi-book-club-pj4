@@ -2,24 +2,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div class="container-fluid">
-  <div class="row">
-    <section id="main">
-        <h2>{{ book.title }}</h2>
-        <p>Title: {{ book.book_title }}</p>
-        <p>Author: {{ book.book_author }}</p>
-        <p>About: {{ book.book_description }}</p>
-        <p>Likes</p>
-    </section>
+  <div class="row justify-content-center">
+    <div class="col-6 ">
+      <section id="main">
+          <h2>{{ book.title }}</h2>
+          <p>Title: {{ book.book_title }}</p>
+          <p>Author: {{ book.book_author }}</p>
+          <p>About: {{ book.book_description }}</p>
+          <p>Likes</p>
+      </section>
+
+    </div>
+  </div>
+</div>
 
     <!-- Content for logged-in users -->
-    <section id="comment">
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-6 ">
       {% if user.is_authenticated %}
         <div>
-            <h2>Welcome, {{ user.username }}!</h2>
+            <h4>Welcome, {{ user.username }}!</h4>
             <p>What did you think about this book?</p>
-            <h2>Like to leave a comment?</h2>
+            <h5>Like to leave a comment?</h5>
             <form id="comment-form" method="post" action="{% url 'add_comment' book_id=book.id %}">
               {% csrf_token %}
               {{ form.as_p }}
@@ -58,11 +64,13 @@
             </script>
             
         </div>
-        <div>
-          <p>Rating</p>
-        </div>
+    </div>
+  </div>
+</div>
 
-        <section id="comments">
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-6 ">
         <div>
           <h2>Comments:</h2>
           {% for comment in comments reversed %}
@@ -86,9 +94,8 @@
             <p>Please log in to leave a comment.</p>
         </div>
       {% endif %}
-      </section>
-    </section>
   </div>
+</div>
 </div>
 
 {% endblock %}
