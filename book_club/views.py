@@ -52,9 +52,11 @@ class UserLoginView(LoginView):
     def form_valid(self, form):
         user = form.get_user()
         login(self.request, user)
+        messages.success(self.request, 'You are logged in!')
         return super().form_valid(form)
 
     def form_invalid(self, form):
+        messages.error(self.request, 'Invalid login credentials.')
         return super().form_invalid(form)
 
     def post(self, request, *args, **kwargs):
@@ -64,15 +66,16 @@ class UserLoginView(LoginView):
 
         if user is not None:
             login(request, user)
-            # Return an success message and redirect page to success_url
+            messages.success(request, 'You are logged in!')
             return super().form_valid(self.get_form())  # Redirect to the success_url
         else:
-            # Return an invalid login error message and redirect back to the login page with an error message
+            messages.error(request, 'Invalid login credentials.')
             return super().form_invalid(self.get_form())  # Redirect back to the login page
 
 
 def logout_view(request):
     logout(request)
+    messages.success(request, 'You are logged out!')
     return redirect('index')
 
 
@@ -89,6 +92,7 @@ def manager(request):
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Book created successfully!')
             return redirect('manager')
 
     return render(request, 'manager.html', {'page_title': page_title, 'books': books, 'form': form})
@@ -116,6 +120,7 @@ class ManagerView(View):
             book_description=book_description
         )
 
+        messages.success(request, 'Book created successfully!')
         return redirect('index')  # Redirect to the index page after creating the book
 
 
@@ -133,6 +138,7 @@ def book_detail(request, book_id):
             comment.user = request.user
             comment.book = book
             comment.save()
+            messages.success(request, 'Comment added successfully!')
             return redirect('book_detail', book_id=book_id)
 
     else:
@@ -149,6 +155,7 @@ def update_book(request, book_id):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Book updated successfully!')
             return redirect('manager')
     else:
         form = BookForm(instance=book)
@@ -160,6 +167,7 @@ def update_book(request, book_id):
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     book.delete()
+    messages.success(request, 'Book deleted!')
     return redirect('index')
 
 
@@ -176,6 +184,7 @@ def add_comment(request, book_id):
             comment.book_id = book_id
             comment.user = request.user  # Set the user to the logged-in user's username
             comment.save()
+            messages.success(request, 'Comment created!')
             return redirect('book_detail', book_id=book_id)
     else:
         form = CommentForm()
@@ -190,6 +199,7 @@ def delete_comment(request, comment_id):
     # Check if the logged-in user is the owner of the comment
     if comment.user == request.user:
         comment.delete()
+        messages.success(request, 'Comment deleted!')
         return redirect('book_detail', book_id=comment.book.id)
 
     return redirect('book_detail', book_id=comment.book.id)

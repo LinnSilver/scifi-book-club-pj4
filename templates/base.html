@@ -50,31 +50,58 @@
   </div>
   
 
-<!-- Messages -->
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-      {% endif %}
-    </div>
-  </div>
-</div>
+            <!-- Messages -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      {% block content %}
-      <!-- specific content for each page -->
-      {% endblock %}
-      <!-- footer content -->
-    </div>
-  </div>
-</div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col">
+                {% block content %}
+                <!-- specific content for each page -->
+                {% endblock %}
+                <!-- footer content -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Include alerts container -->
+          <div id="alerts-container" class="container-fluid">
+            <div class="row">
+              <div class="col">
+                <!-- This is where the alerts will be dynamically inserted -->
+              </div>
+            </div>
+          </div>
+
+          <script>
+            function removeMessages() {
+              setTimeout(function() {
+                const messages = document.querySelectorAll('.messages');
+                messages.forEach(function(message) {
+                  message.style.opacity = '0';
+                  setTimeout(function() {
+                    message.style.display = 'none';
+                  }, 500);
+                });
+              }, 2000);
+            }
+            removeMessages();
+          </script>
+          
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
