@@ -16,108 +16,101 @@
     <title>{{ page_title }}</title>
   </head>
 
-<body>
+  <body>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <!-- header content -->
-        <section id="top">
-          <div class="container-lg my-5 text-center">
-            <h1><a href="{% url 'index' %}" class="text-decoration-none">Sci Fi Book Club</a></h1>
-          </div>
-          <!-- navigation menu -->
-          <ul class="nav justify-content-center text-center">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'index' %}">Home</a>
-            </li>
-
-            {% if request.user.is_authenticated %}
-              <!-- User is logged in -->
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-              </li>
-            {% else %}
-              <!-- User is not logged in -->
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
-              </li>
-            {% endif %}
-            {% if request.user.is_authenticated and request.user.is_superuser %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'manager' %}">Manage Books</a>
-              </li>
-            {% endif %}
-          </ul>
-        </section>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <!-- header content -->
+              <div class="container-lg my-5 header">
+                <h1><a href="{% url 'index' %}" class="text-decoration-none">Sci Fi Book Club</a></h1>
+              </div>
+              <!-- navigation menu -->
+              <ul class="nav justify-content-center text-center">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                  <!-- User is logged in -->
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                  </li>
+                {% else %}
+                  <!-- User is not logged in -->
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                  </li>
+                {% endif %}
+                {% if request.user.is_authenticated and request.user.is_superuser %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'manager' %}">Manage Books</a>
+                  </li>
+                {% endif %}
+              </ul>
+        </div>
       </div>
     </div>
-  </div>
-  
+    
 
-            <!-- Messages -->
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col">
-                  {% if messages %}
-                    <ul class="messages list-unstyled">
-                        {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
+    <!-- Messages -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          {% if messages %}
+            <ul class="messages list-unstyled">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
 
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col">
-                {% block content %}
-                <!-- specific content for each page -->
-                {% endblock %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          {% block content %}
+          <!-- specific content for each page -->
+          {% endblock %}
+          <!-- footer content -->
+          <footer>
+            <h5>Contact</h5>
+            <p>Do you want to make suggestions for upcoming books? Let's talk about it on Facebook.</p>
+              <p>
+                <a href="https://www.facebook.com" aria-label="Go to our Facebook page (opens in new tab)" target="_blank">
+                <i class="fa-brands fa-facebook fa-xl">Facebook</i>
+              </p>
+            <p>Copyright © Linn Silver 2023</p>
+          </footer>
+        </div>
+      </div>
+    </div>
 
-                <!-- footer content -->
-                <footer>
-                  <h5>Contact</h5>
-                  <p>Do you want to make suggestions for upcoming books? Let's talk about it on Facebook.</p>
-                    <p>
-                      <a href="https://www.facebook.com" aria-label="Go to our Facebook page (opens in new tab)" target="_blank">
-                      <i class="fa-brands fa-facebook fa-xl">Facebook</i>
-                      </p>
-                  <p>Copyright © Linn Silver 2023</p>
-                </footer>
-
-              </div>
-            </div>
-          </div>
-
-          
-
-          <!-- Include alerts container -->
-          <div id="alerts-container" class="container-fluid">
-            <div class="row">
-              <div class="col">
-                <!-- This is where the alerts will be dynamically inserted -->
-              </div>
-            </div>
-          </div>
-          <script>
-            function removeMessages() {
-              setTimeout(function() {
-                const messages = document.querySelectorAll('.messages');
-                messages.forEach(function(message) {
-                  message.style.opacity = '0';
-                  setTimeout(function() {
-                    message.style.display = 'none';
-                  }, 500);
-                });
-              }, 2000);
-            }
-            removeMessages();
-          </script>
-          
-
+    <!-- Include alerts container -->
+    <div id="alerts-container" class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <!-- This is where the alerts will be dynamically inserted -->
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      function removeMessages() {
+        setTimeout(function() {
+          const messages = document.querySelectorAll('.messages');
+          messages.forEach(function(message) {
+            message.style.opacity = '0';
+            setTimeout(function() {
+              message.style.display = 'none';
+            }, 500);
+          });
+        }, 2000);
+      }
+      removeMessages();
+    </script>
+            
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

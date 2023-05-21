@@ -9,7 +9,7 @@
       <!-- Add a new book form -->
       <section class="text-center">
             <h2>Library site</h2>
-            <h2>Add a new book</h2>
+            <h3>Add a new book</h3>
             <form method="POST" action="{% url 'manager' %}">
               {% csrf_token %}
               {{ form.as_p }}
@@ -17,8 +17,9 @@
             </form>
         </section>
           <!-- List all books -->
-          <section>
-            <h2>All Books</h2>
+          <br>
+          <section >
+            <h2 class="all-books">All Books</h2>
             <ul>
               {% for book in books %}
               <li>

@@ -10,6 +10,11 @@ body {
   margin-bottom: 25px;
 }
 
+.header {
+  padding-top: 50px;
+  padding-bottom: 0px;
+}
+
 h1 {
   color: #2e261e;
   font-size: 300%;
@@ -19,7 +24,8 @@ h1 {
 }
 
 h2 {
-  margin: 25px;
+  padding-top: 25px;
+  padding-bottom: 20px;
 }
 
 .bold {
@@ -27,6 +33,10 @@ h2 {
 }
 
 /* Navigation */
+.nav {
+  padding-bottom: 15px;
+}
+
 a {
   color: #645201;
   text-decoration: none;
@@ -66,7 +76,7 @@ a:hover {
   list-style: none; /* Remove the list dot */
   padding: 5px; /* Adjust the padding  */
   background-color: #f5f5f5; /* Set the background color */
-  border: 1px solid #ddd; /* Add a border */
+  border: 1px solid #363326; /* Add a border */
   text-align: center; /* Center the message text */
   margin-bottom: 10px; /* Add some space between messages */
 }
@@ -75,17 +85,15 @@ a:hover {
 .form label {
   display: block;
   list-style: none; /* Remove the list dot */
-
   width: 100%;
-  max-width: 300px; /* Adjust the max-width value */
+  max-width: 300px; /* Adjust the max-width */
 }
 
 .form input,
 .form select,
 .form textarea {
   width: 100%;
-
-  max-width: 300px; /* Adjust the max-width value  */
+  max-width: 300px; /* Adjust the max-width */
 }
 
 /* For form */
@@ -128,15 +136,20 @@ label {
 }
 
 .book-title {
+  margin-top: 15px;
   margin-bottom: 20px; /* Add more spacing below the h3 element */
 }
 
 .book-info {
-  margin-bottom: 5px; /* Reduce the spacing between the paragraphs */
+  margin-bottom: 7px;  /* Reduce the spacing between the paragraphs */
 }
 
 .book-author {
-  margin-bottom: 15px; /* Reduce the spacing between the paragraphs */
+  margin-bottom: 20px;
+}
+
+.all-books {
+  padding-left: 40px;
 }
 
 /* All images, not including hero image */

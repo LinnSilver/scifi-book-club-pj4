@@ -28,6 +28,7 @@
           {% else %}
             {% if forloop.counter == 2 %}
             </div>
+
             <div class="row row-cols-3 g-3 rest">
               <div class="col-12 col-sm-4 col-md-4 book-rest">
                 <a href="{% url 'book_detail' book.id %}" class="">
@@ -37,6 +38,7 @@
                   <!-- ... -->
                 </a>
               </div>
+            
             {% else %}
               <div class="col-12 col-sm-4 col-md-4 book-rest">
                 <a href="{% url 'book_detail' book.id %}" class="">
