@@ -120,6 +120,18 @@ label {
   padding: 10px;
 }
 
+.book-title {
+  margin-bottom: 20px; /* Add more spacing below the h3 element */
+}
+
+.book-info {
+  margin-bottom: 5px; /* Reduce the spacing between the paragraphs */
+}
+
+.book-author {
+  margin-bottom: 15px; /* Reduce the spacing between the paragraphs */
+}
+
 /* All images, not including hero image */
 .picture {
   display: block;

@@ -19,9 +19,9 @@
           {% if forloop.first %}
             <div class="col">
               <a href="{% url 'book_detail' book.id %}">
-                <h3>{{ book.title }}</h3>
-                <p>Title: {{ book.book_title }}</p>
-                <p>Author: {{ book.book_author }}</p>
+                <h3 class="book-title">{{ book.title }}</h3>
+                <p class="book-info">Title: {{ book.book_title }}</p>
+                <p class="book-author">Author: {{ book.book_author }}</p>
                 <!-- ... -->
               </a>
             </div>
@@ -31,18 +31,18 @@
             <div class="row row-cols-3 g-3 rest">
               <div class="col-12 col-sm-4 col-md-4 book-rest">
                 <a href="{% url 'book_detail' book.id %}" class="">
-                  <h2>{{ book.title }}</h2>
-                  <p>Title: {{ book.book_title }}</p>
-                  <p>Author: {{ book.book_author }}</p>
+                  <h3 class="book-title">{{ book.title }}</h3>
+                  <p class="book-info">Title: {{ book.book_title }}</p>
+                  <p class="book-author">Author: {{ book.book_author }}</p>
                   <!-- ... -->
                 </a>
               </div>
             {% else %}
               <div class="col-12 col-sm-4 col-md-4 book-rest">
                 <a href="{% url 'book_detail' book.id %}" class="">
-                  <h2>{{ book.title }}</h2>
-                  <p>Title: {{ book.book_title }}</p>
-                  <p>Author: {{ book.book_author }}</p>
+                  <h3 class="book-title">{{ book.title }}</h3>
+                  <p class="book-info">Title: {{ book.book_title }}</p>
+                  <p class="book-author">Author: {{ book.book_author }}</p>
                   <!-- ... -->
                 </a>
               </div>
