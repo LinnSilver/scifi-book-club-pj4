@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Chivo&display=swap");
 
+/* Navigation */
+a {
+  color: #645201;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(180, 153, 0);
+}
+
 body {
   font-family: "Chivo", sans-serif;
   font-size: 1rem;
@@ -16,10 +26,6 @@ h1 {
   letter-spacing: 0.25rem;
   font-weight: bold;
   text-align: center;
-}
-
-hr {
-  margin-top: 25px;
 }
 
 /* Popp up messages */
@@ -72,56 +78,11 @@ hr {
 
 
 /* For contact form */
-label,
-input,
-textarea {
-  display: block;
-  align-items: center;
-  width: 85%;
-  max-width: 400px;
-  padding: 10px 15px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-}
-
-input,
-textarea {
-  font-size: inherit;
-  font-family: inherit;
-}
-
-label {
-  margin-top: 10px;
-}
-
 .required:after {
   content: " *";
   color: red;
 }
 
-
-/* Top navigation */
-nav {
-  text-align: center;
-  padding: 12px;
-}
-
-.active_page {
-  color: rgb(252, 6, 6);
-}
-
-/* Navigation */
-a {
-  color: #645201;
-  font-size: 90%;
-  margin-right: 10px;
-  text-decoration: none;
-}
-
-nav>a:hover {
-  color: rgb(252, 6, 6);
-}
 
 /* All images, not including hero image */
 .picture {
