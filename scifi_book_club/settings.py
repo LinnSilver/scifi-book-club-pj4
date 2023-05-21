@@ -35,7 +35,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#ALLOWED_HOSTS = ['scifi-book-club.herokuapp.com', 'localhost']
+# ALLOWED_HOSTS = ['scifi-book-club.herokuapp.com', 'localhost']
 ALLOWED_HOSTS = ['scifi-book-club.herokuapp.com', 'localhost', '8000-linnsilver-scifibookclu-xtb79iuknzn.ws-eu97.gitpod.io']
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- CSS -->
    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <!-- Favicon -->
+   <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>{{ page_title }}</title>
   </head>
 
@@ -74,10 +76,23 @@
                 {% block content %}
                 <!-- specific content for each page -->
                 {% endblock %}
+
                 <!-- footer content -->
+                <footer>
+                  <h5>Contact</h5>
+                  <p>Do you want to make suggestions for upcoming books? Let's talk about it on Facebook.</p>
+                    <p>
+                      <a href="https://www.facebook.com" aria-label="Go to our Facebook page (opens in new tab)" target="_blank">
+                      <i class="fa-brands fa-facebook fa-xl">Facebook</i>
+                      </p>
+                  <p>Copyright © Linn Silver 2023</p>
+                </footer>
+
               </div>
             </div>
           </div>
+
+          
 
           <!-- Include alerts container -->
           <div id="alerts-container" class="container-fluid">
@@ -87,7 +102,6 @@
               </div>
             </div>
           </div>
-
           <script>
             function removeMessages() {
               setTimeout(function() {
@@ -103,7 +117,6 @@
             removeMessages();
           </script>
           
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
