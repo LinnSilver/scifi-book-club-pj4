@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Chivo&display=swap");
 
-/* Navigation */
-a {
-  color: #645201;
-  text-decoration: none;
-}
-
-a:hover {
-  color: rgb(180, 153, 0);
-}
-
 body {
   font-family: "Chivo", sans-serif;
   font-size: 1rem;
@@ -18,6 +8,7 @@ body {
   /* background-color: rgb(228, 197, 72); */
   background-color: rgb(223, 214, 191);
   color: #242321;
+  margin-bottom: 25px;
 }
 
 h1 {
@@ -27,6 +18,35 @@ h1 {
   font-weight: bold;
   text-align: center;
 }
+
+/* Navigation */
+a {
+  color: #645201;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(180, 153, 0);
+  text-decoration: none;
+}
+
+/* Custom button styles */
+.btn {
+  background-color: #968462; /* Button background color */
+  color: #ffffff; /* Button text color */
+  border: none; /* Remove the default button border */
+  transition: background-color 0.3s ease; /* Transition for smooth color change */
+}
+
+.btn-danger {
+  background-color: #3d1412; /* Button background color */
+}
+
+.btn:hover {
+  background-color: rgb(180, 153, 0); /* Background color when hovered over */
+  border: 1px solid #ffffff; /* New border color when hovered over */
+}
+
 
 /* Popp up messages */
 .messages {
@@ -42,21 +62,6 @@ h1 {
   border: 1px solid #ddd; /* Add a border */
   text-align: center; /* Center the message text */
   margin-bottom: 10px; /* Add some space between messages */
-}
-
-/* Book container */
-.month-book{
-  text-align: center;
-  background-color: rgb(241, 234, 211);
-  border: 10px solid rgb(223, 214, 191);
-  padding: 10px;
-}
-
-.book-rest{
-  text-align: center;
-  background-color: rgb(241, 234, 211);
-  border: 10px solid rgb(223, 214, 191);
-  padding: 10px;
 }
 
 /* lables for form */
@@ -76,13 +81,44 @@ h1 {
   max-width: 300px; /* Adjust the max-width value  */
 }
 
-
-/* For contact form */
-.required:after {
-  content: " *";
-  color: red;
+/* For form */
+label,
+input,
+textarea {
+  display: block;
+  align-items: center;
+  width: 85%;
+  max-width: 400px;
+  padding: 10px 15px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }
 
+input,
+textarea {
+  font-size: inherit;
+  font-family: inherit;
+}
+
+label {
+  margin-top: 10px;
+}
+
+/* Book container */
+.month-book{
+  text-align: center;
+  background-color: rgb(241, 234, 211);
+  border: 10px solid rgb(223, 214, 191);
+  padding: 10px;
+}
+
+.book-rest{
+  text-align: center;
+  background-color: rgb(241, 234, 211);
+  border: 10px solid rgb(223, 214, 191);
+  padding: 10px;
+}
 
 /* All images, not including hero image */
 .picture {
