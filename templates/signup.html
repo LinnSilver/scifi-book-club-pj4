@@ -10,7 +10,7 @@
         <!-- Alerts container -->
         <div id="alerts-container">
         <!-- signup form -->
-        <form method="post">
+        <form method="post" class="form">
           {% csrf_token %}
           {{ form.as_p }}
           <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -21,6 +21,4 @@
   </div>
 </div>
 
-
 {% endblock %}
-  

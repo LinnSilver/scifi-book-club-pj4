@@ -4,6 +4,7 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-6">
+      <section class="text-center">
       <h2>Update Book</h2>
       <form method="POST" action="{% url 'update_book' book.id %}">
         {% csrf_token %}
@@ -16,6 +17,7 @@
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
+    </section>
     </div>
   </div>
 </div>
