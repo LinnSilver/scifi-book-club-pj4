@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import Book, Comment
 from .forms import BookForm
 from .forms import CommentForm
+from django import forms
+from django.contrib.auth.decorators import user_passes_test
 
 
 def index(request):
@@ -104,24 +106,21 @@ class ManagerView(View):
         if not request.user.is_authenticated or not request.user.is_superuser:
             messages.error(request, 'You need to be logged in as a librarian to access this page.')
             return redirect('login')
-        return render(request, 'manager.html')
+
+        form = BookForm()
+        return render(request, 'manager.html', {'form': form})
 
     def post(self, request):
-        title = request.POST.get('title')
-        book_title = request.POST.get('book_title')
-        book_author = request.POST.get('book_author')
-        book_description = request.POST.get('book_description')
+        form = BookForm(request.POST)  # Bind form data to the form instance
 
-        # Create a new Book instance
-        book = Book.objects.create(
-            title=title,
-            book_title=book_title,
-            book_author=book_author,
-            book_description=book_description
-        )
+        if form.is_valid():
+            book = form.save()  # Save the form data and create a new Book instance
+            messages.success(request, 'Book created successfully!')
+            return redirect('book_detail')
+        else:
+            messages.error(request, 'Error creating book. Please check the form.')
 
-        messages.success(request, 'Book created successfully!')
-        return redirect('index')  # Redirect to the index page after creating the book
+        return render(request, 'manager.html', {'form': form})
 
 
 def book_detail(request, book_id):
@@ -140,9 +139,6 @@ def book_detail(request, book_id):
             comment.save()
             messages.success(request, 'Comment added successfully!')
             return redirect('book_detail', book_id=book_id)
-
-    else:
-        form = CommentForm()
 
     return render(request, 'book_detail.html', {'book': book, 'comments': comments, 'form': form, 'page_title': page_title})
 

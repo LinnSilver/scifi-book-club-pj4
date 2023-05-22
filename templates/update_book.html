@@ -13,7 +13,7 @@
         </form>
         <br>
         <!-- Delete book form -->
-        <form method="POST" action="{% url 'delete_book' book.id %}">
+        <form id="delete-book-form" method="POST" action="{% url 'delete_book' book.id %}">
           {% csrf_token %}
           <button type="submit" class="btn btn-danger" aria-label="Delete Book">Delete</button>
         </form>
@@ -21,5 +21,25 @@
     </div>
   </div>
 </div>
+
+
+<!-- Delete confermation -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteForm = document.getElementById('delete-book-form');
+    deleteForm.addEventListener('submit', confirmDelete);
+  });
+
+  function confirmDelete(event) {
+    event.preventDefault(); // Prevent the form submission
+
+    let form = event.currentTarget;
+
+    if (confirm('Are you sure you want to delete the book?')) {
+      form.submit(); // Submit the form if the user confirms deletion
+    }
+  }
+</script>
+
 
 {% endblock %}

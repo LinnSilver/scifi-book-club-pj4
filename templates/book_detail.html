@@ -52,7 +52,7 @@
               <p class="bold">{{ comment.user.username }} says:</p>
               <p>{{ comment.content }}</p>
               {% if user.is_authenticated and user == comment.user %}
-                <form method="post" action="{% url 'delete_comment' comment_id=comment.id %}">
+                <form id="delete-comment-form" method="post" action="{% url 'delete_comment' comment_id=comment.id %}">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
@@ -102,4 +102,21 @@
   });
 </script>
 
+<!-- Delete confermation -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteForm = document.getElementById('delete-comment-form');
+    deleteForm.addEventListener('submit', confirmDelete);
+  });
+
+  function confirmDelete(event) {
+    event.preventDefault(); // Prevent the form submission
+
+    let form = event.currentTarget;
+
+    if (confirm('Are you sure you want to delete the comment?')) {
+      form.submit(); // Submit the form if the user confirms deletion
+    }
+  }
+</script>
 {% endblock %}

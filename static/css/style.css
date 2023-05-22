@@ -54,51 +54,50 @@ a:hover {
 
 /* Custom button styles */
 .btn {
-  background-color: #968462; /* Button background color */
-  color: #ffffff; /* Button text color */
+  background-color: #968462;
+  color: #ffffff;
   border: none; /* Remove the default button border */
   transition: background-color 0.3s ease; /* Transition for smooth color change */
 }
 
 .btn-danger {
-  background-color: #3d1412; /* Button background color */
+  background-color: #3d1412;
 }
 
 .btn:hover {
-  background-color: rgb(180, 153, 0); /* Background color when hovered over */
-  border: 1px solid #ffffff; /* New border color when hovered over */
+  background-color: rgb(180, 153, 0);
+  border: 1px solid #ffffff;
 }
-
 
 /* Popp up messages */
 .messages {
-  max-width: 300px; /* Adjust the width  */
+  max-width: 300px;
   margin: 0 auto; /* Center the messages horizontally */
-  padding-left: 0; /* Remove the default left padding */
+  padding-left: 0;
 }
 
 .messages li {
   list-style: none; /* Remove the list dot */
-  padding: 5px; /* Adjust the padding  */
+  padding: 5px;
   background-color: #f5f5f5; /* Set the background color */
   border: 1px solid #363326; /* Add a border */
-  text-align: center; /* Center the message text */
+  text-align: center;
   margin-bottom: 10px; /* Add some space between messages */
 }
 
 /* lables for form */
 .form label {
   display: block;
-  list-style: none; /* Remove the list dot */
+  list-style: none;
   width: 100%;
-  max-width: 300px; /* Adjust the max-width */
+  max-width: 300px;
 }
 
 .form input,
 .form select,
 .form textarea {
   width: 100%;
-  max-width: 300px; /* Adjust the max-width */
+  max-width: 300px;
 }
 
 /* For form */
@@ -174,11 +173,11 @@ label {
 
 .book-title {
   margin-top: 15px;
-  margin-bottom: 20px; /* Add more spacing below the h3 element */
+  margin-bottom: 20px;
 }
 
 .book-info {
-  margin-bottom: 7px;  /* Reduce the spacing between the paragraphs */
+  margin-bottom: 7px;
 }
 
 .book-author {
@@ -188,15 +187,6 @@ label {
 .all-books {
   padding-left: 40px;
 }
-
-/* All images, not including hero image */
-.picture {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4/2;
-  object-fit: cover;
-}
-
 
 /* Footer */
 footer {
@@ -210,3 +200,12 @@ footer {
   color: #4267b2;
 }
 
+
+
+/* All images, not including hero image */
+.picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/2;
+  object-fit: cover;
+}
