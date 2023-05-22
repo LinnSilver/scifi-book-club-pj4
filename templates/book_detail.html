@@ -10,14 +10,13 @@
           <p class="bold">Title: {{ book.book_title }}</p>
           <p class="bold">Author: {{ book.book_author }}</p>
           <p>About: {{ book.book_description }}</p>
-          <p>Likes</p>
       </section>
-
     </div>
   </div>
 </div>
+<br>
 
-    <!-- Content for logged-in users -->
+<!-- Content for logged-in users, Comment form -->
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 ">
@@ -25,57 +24,33 @@
         <div>
             <h4>Welcome, {{ user.username }}!</h4>
             <p>What did you think about this book?</p>
-            <h5>Like to leave a comment?</h5>
             <form id="comment-form" method="post" action="{% url 'add_comment' book_id=book.id %}">
               {% csrf_token %}
-              {{ form.as_p }}
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-            
-            <script>
-              $(document).ready(function() {
-                $('#comment-form').submit(function(event) {
-                  event.preventDefault(); // Prevent the form from submitting normally
-            
-                  var form = $(this);
-                  var url = form.attr('action');
-                  var formData = form.serialize();
-            
-                  // Submit the form using AJAX
-                  $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: formData,
-                    success: function(response) {
-                      // Reload the page after successful submission
-                      location.reload();
-                    },
-                    error: function(xhr) {
-                      // Handle errors and display an error message
-                      Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'An error occurred while submitting the comment. Please try again.',
-                      });
-                    }
-                  });
-                });
-              });
-            </script>
+              <div class="form-row">
+                  <label for="id_content">Like to leave a comment?</label>
+              </div>
+              <div class="form-row">
+                  <textarea id="id_content" name="content"></textarea>
+              </div>
+              <div class="form-row">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+          </form>
             
         </div>
     </div>
   </div>
 </div>
 
+<!-- Comment views, for logged-in users -->
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 ">
         <div class="center">
           <h2>Comments:</h2>
           {% for comment in comments reversed %}
-            <div>
-              <p>{{ comment.user.username }} says:</p>
+            <div class="comment-container comment-box">
+              <p class="bold">{{ comment.user.username }} says:</p>
               <p>{{ comment.content }}</p>
               {% if user.is_authenticated and user == comment.user %}
                 <form method="post" action="{% url 'delete_comment' comment_id=comment.id %}">
@@ -97,5 +72,36 @@
   </div>
 </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#comment-form').submit(function(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+
+      var form = $(this);
+      var url = form.attr('action');
+      var formData = form.serialize();
+
+      // Submit the form using AJAX
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: formData,
+        success: function(response) {
+          // Reload the page after successful submission
+          location.reload();
+        },
+        error: function(xhr) {
+          // Handle errors and display an error message
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'An error occurred while submitting the comment. Please try again.',
+          });
+        }
+      });
+    });
+  });
+</script>
 
 {% endblock %}
