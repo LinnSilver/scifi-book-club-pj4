@@ -9,10 +9,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from .models import Book, Comment
-from .forms import BookForm
-from .forms import CommentForm
-from django import forms
-from django.contrib.auth.decorators import user_passes_test
+from .forms import BookForm, CommentForm
 
 
 def index(request):
@@ -47,8 +44,6 @@ def signup(request):
     return render(request, 'signup.html', {'form': form, 'page_title': page_title})
 
 
-from django.contrib.auth.views import LoginView
-
 class UserLoginView(LoginView):
     template_name = 'login.html'
     success_url = reverse_lazy('index')
@@ -82,7 +77,6 @@ class UserLoginView(LoginView):
         else:
             messages.error(request, 'Invalid login credentials.')
             return super().form_invalid(self.get_form())  # Redirect back to the login page
-
 
 
 def logout_view(request):
@@ -135,7 +129,7 @@ class ManagerView(View):
 
 def book_detail(request, book_id):
     page_title = "Book club"
-    book = get_object_or_404(Book, id=book_id) 
+    book = get_object_or_404(Book, id=book_id)
     comments = Comment.objects.filter(book=book)
     page_title = book.title
     form = CommentForm()

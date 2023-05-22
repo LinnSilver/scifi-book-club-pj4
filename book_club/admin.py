@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group, Permission
-from .models import Book
-from .models import Comment
+from .models import Book, Comment
 
 
 admin.site.register(Comment)

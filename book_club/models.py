@@ -8,9 +8,9 @@ from django.utils.crypto import get_random_string
 
 class Book(models.Model):
     title = models.CharField(max_length=200, null=False, blank=False)
-    book_title = models.CharField(max_length=200, null=False, blank=False)  # New field for book title
-    book_author = models.CharField(max_length=100, null=False, blank=False)  # New field for book author
-    book_description = models.TextField(null=False, blank=False)  # New field for book description
+    book_title = models.CharField(max_length=200, null=False, blank=False)
+    book_author = models.CharField(max_length=100, null=False, blank=False)
+    book_description = models.TextField(null=False, blank=False)
     slug = models.SlugField(max_length=50, unique=True)
     status = models.CharField(max_length=10, choices=(
         ('draft', 'Draft'),
@@ -44,4 +44,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.user.username} says: {self.content}"
-

@@ -14,12 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth.decorators import user_passes_test
 from django.urls import path
+from django.contrib.auth.decorators import user_passes_test
 from book_club import views
+from book_club.views import add_comment, delete_comment
 from django.contrib.auth import get_user_model
-from book_club.views import add_comment
-from book_club.views import delete_comment
 
 
 User = get_user_model()

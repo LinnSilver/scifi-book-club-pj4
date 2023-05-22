@@ -1,9 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.db import models
-from .models import Book
-from .models import Comment
+from .models import Book, Comment
 
 
 class CommentForm(forms.ModelForm):
@@ -20,11 +18,6 @@ class CommentForm(forms.ModelForm):
         if commit:
             comment.save()
         return comment
-
-
-        # widgets = {
-        #    'info': forms.Textarea(attrs={'placeholder': 'Comment'}),
-        # }
 
 
 class SignUpForm(UserCreationForm):
