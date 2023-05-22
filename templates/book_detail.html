@@ -1,10 +1,9 @@
-<!-- book_details.html -->
 {% extends 'base.html' %}
 
 {% block content %}
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8 ">
+    <div class="col-lg-6 col-md-8">
       <section id="main">
           <h2>{{ book.title }}</h2>
           <p class="bold">Title: {{ book.book_title }}</p>
@@ -19,7 +18,7 @@
 <!-- Content for logged-in users, Comment form -->
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8 ">
+    <div class="col-lg-6 col-md-8">
       {% if user.is_authenticated %}
         <div>
             <h4>Welcome, {{ user.username }}!</h4>
@@ -36,8 +35,8 @@
                   <button type="submit" class="btn btn-primary">Submit</button>
               </div>
           </form>
-            
         </div>
+      </div>
     </div>
   </div>
 </div>
@@ -45,7 +44,7 @@
 <!-- Comment views, for logged-in users -->
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8 ">
+    <div class="col-lg-6 col-md-8">
         <div class="center">
           <h2>Comments:</h2>
           {% for comment in comments reversed %}
@@ -70,7 +69,6 @@
         </div>
       {% endif %}
   </div>
-</div>
 </div>
 
 <script>

@@ -4,7 +4,7 @@
 <div class="container-fluid top">
   <div class="row justify-content-center">
     <div class="col-9 text-center">
-      <p>This book club is for you who love classic sci-fi books. Log in and get started now. We're aiming for the stars.</p>
+      <p>This book club is for those who love classic sci-fi books. Log in and get started now. We're aiming for the stars.</p>
       <h2 class="text-center">Book of the month</h2>
     </div>
   </div>
@@ -22,7 +22,6 @@
                 <h3 class="book-title">{{ book.title }}</h3>
                 <p class="book-info">Title: {{ book.book_title }}</p>
                 <p class="book-author">Author: {{ book.book_author }}</p>
-                <!-- ... -->
               </a>
             </div>
           {% else %}
@@ -35,7 +34,7 @@
                   <h3 class="book-title">{{ book.title }}</h3>
                   <p class="book-info">Title: {{ book.book_title }}</p>
                   <p class="book-author">Author: {{ book.book_author }}</p>
-                  <!-- ... -->
+
                 </a>
               </div>
             
@@ -45,7 +44,6 @@
                   <h3 class="book-title">{{ book.title }}</h3>
                   <p class="book-info">Title: {{ book.book_title }}</p>
                   <p class="book-author">Author: {{ book.book_author }}</p>
-                  <!-- ... -->
                 </a>
               </div>
             {% endif %}
@@ -62,5 +60,3 @@
 </div>
 
 {% endblock %}
-
-

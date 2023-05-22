@@ -8,29 +8,30 @@
         
       <!-- Add a new book form -->
       <section class="text-center">
-            <h2>Library site</h2>
-            <h3>Add a new book</h3>
-            <form method="POST" action="{% url 'manager' %}">
-              {% csrf_token %}
-              {{ form.as_p }}
-              <button type="submit" value="Create Book" class="btn btn-primary">Create Book</button>
-            </form>
-        </section>
-          <!-- List all books -->
-          <br>
-          <section >
-            <h2 class="all-books">All Books</h2>
-            <ul>
-              {% for book in books %}
-              <li>
-                <a href="{% url 'update_book' book.id %}">{{ book.title }} - {{ book.book_title }}</a>
-              </li>
-              {% endfor %}
-            </ul>
-          </section>
+        <h2>Library site</h2>
+        <h3>Add a new book</h3>
+        <form method="POST" action="{% url 'manager' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" value="Create Book" class="btn btn-primary" aria-label="Create Book">Create Book</button>
+        </form>
+      </section>
+      
+      <!-- List all books -->
+      <br>
+      <section>
+        <h2 class="all-books">All Books</h2>
+        <ul>
+          {% for book in books %}
+          <li>
+            <a href="{% url 'update_book' book.id %}">{{ book.title }} - {{ book.book_title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+      
     </div>
   </div>
 </div>
-
 
 {% endblock %}
