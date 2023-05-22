@@ -19,7 +19,7 @@ def index(request):
     page_title = "Sci fi Book Club"
     books = Book.objects.order_by('-created_on')
     latest_book = Book.objects.order_by('-id').first()
-    return render(request, 'index.html', {'books': books, 'latest_book': latest_book})
+    return render(request, 'index.html', {'books': books, 'latest_book': latest_book, 'page_title': page_title})
 
 
 # checks whether a user has the Superuser status
@@ -31,6 +31,7 @@ def is_superuser(user):
 # Log in and out
 #####
 def signup(request):
+    page_title = "Sign up"
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -43,13 +44,21 @@ def signup(request):
             return redirect('index')
     else:
         form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'signup.html', {'form': form, 'page_title': page_title})
 
+
+from django.contrib.auth.views import LoginView
 
 class UserLoginView(LoginView):
     template_name = 'login.html'
     success_url = reverse_lazy('index')
     authentication_form = AuthenticationForm
+    page_title = 'Login'  # Add the page title
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = self.page_title  # Pass the page title to the template
+        return context
 
     def form_valid(self, form):
         user = form.get_user()
@@ -73,6 +82,7 @@ class UserLoginView(LoginView):
         else:
             messages.error(request, 'Invalid login credentials.')
             return super().form_invalid(self.get_form())  # Redirect back to the login page
+
 
 
 def logout_view(request):
@@ -145,6 +155,7 @@ def book_detail(request, book_id):
 
 @user_passes_test(is_superuser, login_url='/login/')
 def update_book(request, book_id):
+    page_title = "Update book"
     book = get_object_or_404(Book, id=book_id)
 
     if request.method == 'POST':
@@ -156,7 +167,7 @@ def update_book(request, book_id):
     else:
         form = BookForm(instance=book)
 
-    return render(request, 'update_book.html', {'form': form, 'book': book})
+    return render(request, 'update_book.html', {'form': form, 'book': book, 'page_title': page_title})
 
 
 @user_passes_test(is_superuser, login_url='/login/')
