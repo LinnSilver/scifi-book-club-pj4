@@ -47,6 +47,11 @@ a:hover {
   text-decoration: none;
 }
 
+.fa-facebook:hover {
+  color: rgb(180, 153, 0);
+  text-decoration: none;
+}
+
 /* Custom button styles */
 .btn {
   background-color: #968462; /* Button background color */
@@ -204,3 +209,4 @@ footer {
 .fa-facebook {
   color: #4267b2;
 }
+
