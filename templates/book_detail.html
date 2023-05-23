@@ -1,50 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8">
-      <section id="main">
-          <h2>{{ book.title }}</h2>
-          <p class="bold">Title: {{ book.book_title }}</p>
-          <p class="bold">Author: {{ book.book_author }}</p>
-          <p>About: {{ book.book_description }}</p>
-      </section>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <h2>{{ book.title }}</h2>
+        <p class="bold">Title: {{ book.book_title }}</p>
+        <p class="bold">Author: {{ book.book_author }}</p>
+        <p>About: {{ book.book_description }}</p>
+      </div>
     </div>
   </div>
-</div>
-<br>
+  <br>
 
-<!-- Content for logged-in users, Comment form -->
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8">
-      {% if user.is_authenticated %}
-        <div>
+  <!-- Content for logged-in users, Comment form -->
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        {% if user.is_authenticated %}
+          <div>
             <h4>Welcome, {{ user.username }}!</h4>
             <p>What did you think about this book?</p>
             <form id="comment-form" method="post" action="{% url 'add_comment' book_id=book.id %}">
               {% csrf_token %}
               <div class="form-row">
-                  <label for="id_content">Like to leave a comment?</label>
+                <label for="id_content">Like to leave a comment?</label>
               </div>
               <div class="form-row">
-                  <textarea id="id_content" name="content"></textarea>
+                <textarea id="id_content" name="content"></textarea>
               </div>
               <div class="form-row">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
-</div>
 
-<!-- Comment views, for logged-in users -->
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8">
+  <!-- Comment views, for logged-in users -->
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
         <div class="center">
           <h2>Comments:</h2>
           {% for comment in comments reversed %}
@@ -62,61 +60,60 @@
             <p>No comments yet.</p>
           {% endfor %}
         </div>
-      {% else %}
-        <div>
+        {% if not user.is_authenticated %}
+          <div>
             <!-- Content for non-logged-in users -->
             <p>Please log in to leave a comment.</p>
-        </div>
-      {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
   </div>
-</div>
 
-<script>
-  $(document).ready(function() {
-    $('#comment-form').submit(function(event) {
-      event.preventDefault(); // Prevent the form from submitting normally
+  <!-- Handles the form submission -->
+  <script>
+    $(document).ready(function() {
+      $('#comment-form').submit(function(event) {
+        event.preventDefault(); 
 
-      var form = $(this);
-      var url = form.attr('action');
-      var formData = form.serialize();
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = form.serialize();
 
-      // Submit the form using AJAX
-      $.ajax({
-        type: 'POST',
-        url: url,
-        data: formData,
-        success: function(response) {
-          // Reload the page after successful submission
-          location.reload();
-        },
-        error: function(xhr) {
-          // Handle errors and display an error message
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'An error occurred while submitting the comment. Please try again.',
-          });
-        }
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: formData,
+          success: function(response) {
+            location.reload();
+          },
+          error: function(xhr) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'An error occurred while submitting the comment. Please try again.',
+            });
+          }
+        });
       });
     });
-  });
-</script>
+  </script>
 
-<!-- Delete confermation -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const deleteForm = document.getElementById('delete-comment-form');
-    deleteForm.addEventListener('submit', confirmDelete);
-  });
+  <!-- Delete confirmation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const deleteForm = document.getElementById('delete-comment-form');
+      deleteForm.addEventListener('submit', confirmDelete);
+    });
 
-  function confirmDelete(event) {
-    event.preventDefault(); // Prevent the form submission
+    function confirmDelete(event) {
+      event.preventDefault();
 
-    let form = event.currentTarget;
+      let form = event.currentTarget;
 
-    if (confirm('Are you sure you want to delete the comment?')) {
-      form.submit(); // Submit the form if the user confirms deletion
+      if (confirm('Are you sure you want to delete the comment?')) {
+        form.submit();
+      }
     }
-  }
-</script>
+  </script>
 {% endblock %}

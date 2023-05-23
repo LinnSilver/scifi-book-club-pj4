@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<!-- Login -->
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
             <div class="hero text-center">
                 <h2>Log in</h2>
                 <!-- Alerts container -->
-                <div id="alerts-container">
+                <div id="alerts-container-login">
                     <!-- login form -->
                     <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}

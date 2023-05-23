@@ -69,7 +69,7 @@ a:hover {
   border: 1px solid #ffffff;
 }
 
-/* Popp up messages */
+/* Popup messages */
 .messages {
   max-width: 300px;
   margin: 0 auto; /* Center the messages horizontally */
@@ -85,7 +85,7 @@ a:hover {
   margin-bottom: 10px; /* Add some space between messages */
 }
 
-/* lables for form */
+/* Form labels */
 .form label {
   display: block;
   list-style: none;
@@ -93,6 +93,7 @@ a:hover {
   max-width: 300px;
 }
 
+/* Form input, select, and textarea styles */
 .form input,
 .form select,
 .form textarea {
@@ -100,7 +101,7 @@ a:hover {
   max-width: 300px;
 }
 
-/* For form */
+/* Generic form styles */
 label,
 input,
 textarea {
@@ -124,6 +125,7 @@ label {
   margin-top: 10px;
 }
 
+/* Comment form */
 #comment-form .form-row {
   margin-bottom: 10px;
 }
@@ -198,14 +200,4 @@ footer {
 
 .fa-facebook {
   color: #4267b2;
-}
-
-
-
-/* All images, not including hero image */
-.picture {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4/2;
-  object-fit: cover;
 }

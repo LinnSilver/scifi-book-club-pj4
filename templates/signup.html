@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
       <div class="text-center">
         <h2>Sign up</h2>
-        <!-- Alerts container -->
-        <div id="alerts-container">
+        <!-- Alerts container for signup -->
+        <div id="alerts-container-signup">
           <!-- signup form -->
           <form method="post" class="form">
             {% csrf_token %}
@@ -21,5 +20,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

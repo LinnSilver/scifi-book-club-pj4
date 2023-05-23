@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
-        
+
       <!-- Add a new book form -->
       <section class="text-center">
         <h2>Library site</h2>
@@ -16,7 +15,7 @@
           <button type="submit" value="Create Book" class="btn btn-primary" aria-label="Create Book">Create Book</button>
         </form>
       </section>
-      
+
       <!-- List all books -->
       <br>
       <section>
@@ -29,9 +28,8 @@
           {% endfor %}
         </ul>
       </section>
-      
+
     </div>
   </div>
 </div>
-
 {% endblock %}
