@@ -39,6 +39,8 @@ def signup(request):
             login(request, user)
             messages.success(request, 'Account created successfully!')
             return redirect('index')
+        else:
+            messages.error(request, 'Error creating the account. Please check the form and try again.')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form, 'page_title': page_title})
