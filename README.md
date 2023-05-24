@@ -55,7 +55,7 @@ Wireframes were created using Balsamiq during the planning phase to visualize th
 ### Navigation bar
 The top navigation is display differently depending on user validation status. For a not logged in user I contain Home and Login. When logged in it changes to log out. For a logged in Liberian there is also a link to Manage Book.
 The links in the Top Nav will, as al other links and buttons, change color to gold when cursor focus.
-## ![]()
+## ![Navigation bar](assets/images/navigation.png)
 
 ### Log in
 The log in page contain a form with username and password. It will validate that the information provided is correct. A correct login redirect the user to home page and provides a message of success login.
@@ -63,7 +63,7 @@ The log in page contain a form with username and password. It will validate that
 Just under the login button, there is also a link to Sign Up if not already.
 
 Both the link and button, change color to gold when  cursor focus.
-## ![]()
+## ![Log in](assets/images/login_p.jpg)
 
 ### Sign up
 The sign-up page contains a form with username, password and a confirmation password field. There is also information about what a valid password is. They form will validate that's all information is filled in correctly.
