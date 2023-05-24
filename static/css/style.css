@@ -6,7 +6,7 @@ body {
   line-height: 1.5rem;
   letter-spacing: 0.06rem;
   background-color: rgb(209, 203, 186);
-  color: #241f21;
+  color: #282030;
   margin-bottom: 25px;
 }
 
@@ -16,7 +16,6 @@ body {
 }
 
 h1 {
-  color: #2e261e;
   font-size: 300%;
   letter-spacing: 0.25rem;
   font-weight: bold;
@@ -56,35 +55,35 @@ h2 {
 }
 
 a {
-  color: #645201;
+  color: #282030;
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(180, 153, 0);
+  color: rgb(179, 160, 53);
   text-decoration: none;
 }
 
 .fa-facebook:hover {
-  color: rgb(180, 153, 0);
+  color: rgb(179, 160, 53);
   text-decoration: none;
 }
 
 /* Custom button styles */
 .btn {
   background-color: #968462;
-  color: #ffffff;
+  color: #f5f5f5;
   border: none; /* Remove the default button border */
   transition: background-color 0.3s ease; /* Transition for smooth color change */
 }
 
 .btn-danger {
-  background-color: #3d1412;
+  background-color: #492322;
 }
 
 .btn:hover {
-  background-color: rgb(180, 153, 0);
-  border: 1px solid #ffffff;
+  background-color: rgb(179, 160, 53);
+  border: 1px solid #f5f5f5;
 }
 
 /* Popup messages */
@@ -98,7 +97,7 @@ a:hover {
   list-style: none; /* Remove the list dot */
   padding: 5px;
   background-color: #f5f5f5;
-  border: 1px solid #363326;
+  border: 1px solid #362c26;
   text-align: center;
   margin-bottom: 10px;
 }
@@ -158,7 +157,7 @@ label {
   width: 100%;
   height: 130px;
   display: block;
-  border: 1px solid #ccc;
+  border: 1px solid #968462;
   padding: 5px;
   margin-left: 5px;
   float: left;
@@ -171,7 +170,7 @@ label {
 }
 
 .comment-box {
-  border: 2px solid rgb(241, 234, 211);
+  border: 2px solid rgb(233, 230, 221);
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -219,3 +218,5 @@ footer {
 .fa-facebook {
   color: #4267b2;
 }
+
+  
