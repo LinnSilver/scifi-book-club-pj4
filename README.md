@@ -68,7 +68,7 @@ Both the link and button, change color to gold when  cursor focus.
 ### Sign up
 The sign-up page contains a form with username, password and a confirmation password field. There is also information about what a valid password is. They form will validate that's all information is filled in correctly.
 The button will change color to gold when  cursor focus.
-## ![]()
+## ![Sign up](assets/images/signup_p.jpg)
 
 ###  Home page
 On the home page, all users can find the book of the month at the top and earlier books underneath. The page is responsive and display the page different depending on screen size.
