@@ -11,13 +11,14 @@ from django.contrib.auth.decorators import (
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Book, Comment
 from .forms import BookForm, CommentForm
+from django.urls import reverse_lazy
 
 
 def index(request):
     """
     View function for the index page.
     """
-    page_title = "Sci fi Book Club"
+    page_title = "Sci fi Book Club - Home"
     books = Book.objects.order_by('-created_on')
     latest_book = Book.objects.order_by('-id').first()
     return render(request, 'index.html', {
@@ -41,7 +42,7 @@ def signup(request):
     """
     Sign up page.
     """
-    page_title = "Sign up"
+    page_title = "Sci fi Book Club - Sign up"
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -71,7 +72,7 @@ class UserLoginView(LoginView):
     template_name = 'login.html'
     success_url = reverse_lazy('index')
     authentication_form = AuthenticationForm
-    page_title = 'Login'
+    page_title = 'Sci fi Book Club - Login'
 
     def get_context_data(self, **kwargs):
         """
@@ -127,7 +128,7 @@ def manager(request):
     """
     View function for the book manager page.
     """
-    page_title = "Manage book"
+    page_title = "Sci fi Book Club - Manage book"
     books = Book.objects.order_by('-created_on')
     form = BookForm()
 
@@ -182,7 +183,7 @@ def update_book(request, book_id):
     """
     View function to update a book.
     """
-    page_title = "Update book"
+    page_title = "Sci fi Book Club - Update book"
     book = get_object_or_404(Book, id=book_id)
 
     if request.method == 'POST':
@@ -205,10 +206,9 @@ def book_detail(request, book_id):
     """
     View function for the book detail page.
     """
-    page_title = "Book club"
     book = get_object_or_404(Book, id=book_id)
     comments = Comment.objects.filter(book=book)
-    page_title = book.title
+    page_title = f"Sci fi Book Club - {book.title}"
     form = CommentForm()
 
     if request.method == 'POST':
