@@ -1,5 +1,5 @@
 # Sci fi Book Club
-#### [View the live project here](https://.com/)
+#### [View the live project here](https://scifi-book-club.herokuapp.com)
 Welcome to our Sci Fi Book Club website! Our primary goal is to create a vibrant online community where sci fi book enthusiasts can come together to read and discuss their favorite literary works.
 
 Upon visiting our home page, users are greeted with a captivating display of our current "Book of the Month,"  Additionally, they can easily explore our extensive archive of previous books, providing a wealth of inspiration for their next reading adventure.
@@ -32,17 +32,7 @@ As a book club member, I want to engage in meaningful discussions about books an
 -   **Manage book:** As a Site Admin/ Librarian I can create, read, update and delete books so that  I can manage the book clubs content
 -   **Delete a book:** As a logged in Site User I can delete a comment I wrote on a book so that I can change my minde
 -  **Change credentials:** As a admin I can, from the admin panel, update a users credentials to Librarian/superuser.
-- 
-#### User Stories, Maybe later:
--   **Rate a book:** As a logged in Site User I can rate a book so that I can show my opinion
--   **View rating:** As a Site User / Admin I can view the rating of every book so that I can see which is the most popular**
--   **Create drafts:** As a Site Admin I can create draft book so that I can finish writing the content later
- -   **Update a comment:** As a logged in Site User I can update my comment on a book so that I can change my minde or my mistake
 
-#### User Stories , Won't implement:
--   **Like / Unlike:** As a Site User I can like or unlike a book so that I can interact with the content
--   **View likes:** As a Site User / Admin I can view the number of likes on each post so that I can see which is the most popular or viral
- -   **Approve comments:** As a Site Admin I can approve comments
 
 
 ## Design
@@ -51,13 +41,13 @@ Beskrivning av designen, tanken bakom färgerna
 ### Wireframes
 Wireframes were created using Balsamiq during the planning phase to visualize the website's layout on desktop and mobile devices.
 
+![Homemobile](assets/images/mobilehome.jpg)
 ![Home](assets/images/home.jpg)
 ![Book](assets/images/book.jpg)
 ![Signup](assets/images/signup.jpg)
 ![Login](assets/images/login.jpg)
 ![Manager](assets/images/managebook.jpg)
 ![Updatebook](assets/images/updatebook.jpg)
-![Homemobile](assets/images/mobilehome.jpg)
 
 
 
@@ -119,7 +109,6 @@ Frameworks, Libraries and Programs Used:
 - Google Fonts
 
 
-
 ## Testing
 
 -   HTML  **W3C tools**
@@ -132,7 +121,7 @@ Frameworks, Libraries and Programs Used:
 ## ![CSS validation](assets/images/lithouse.jpg)
 
 -   JSHint
-## ![JShint validation]()
+## ![JShint validation](assets/images/jshint.jpg)
 
 -  CI Python Linter
 Forms.py, Models.py, Views.py
