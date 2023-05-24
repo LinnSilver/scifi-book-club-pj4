@@ -27,16 +27,18 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9z^l2rwzsv%uv2ltdyz%vq#a^m!kbcc)$%qvh1eur=kj6!_b51'
-
-LOGIN_REDIRECT_URL = reverse_lazy('index')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['scifi-book-club.herokuapp.com', 'localhost']
-ALLOWED_HOSTS = ['scifi-book-club.herokuapp.com', 'localhost', '8000-linnsilver-scifibookclu-xtb79iuknzn.ws-eu97.gitpod.io']
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+
+ALLOWED_HOSTS = [
+    'scifi-book-club.herokuapp.com',
+    'localhost',
+    '8000-linnsilver-scifibookclu-xtb79iuknzn.ws-eu97.gitpod.io'
+]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -102,13 +104,6 @@ WSGI_APPLICATION = 'scifi_book_club.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-# }
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
