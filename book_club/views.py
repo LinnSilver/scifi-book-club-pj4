@@ -1,33 +1,46 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import (
+    login_required,
+    user_passes_test,
+    permission_required
+)
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Book, Comment
 from .forms import BookForm, CommentForm
 
 
 def index(request):
+    """
+    View function for the index page.
+    """
     page_title = "Sci fi Book Club"
     books = Book.objects.order_by('-created_on')
     latest_book = Book.objects.order_by('-id').first()
-    return render(request, 'index.html', {'books': books, 'latest_book': latest_book, 'page_title': page_title})
+    return render(request, 'index.html', {
+        'books': books,
+        'latest_book': latest_book,
+        'page_title': page_title})
 
 
-# checks whether a user has the Superuser status
 def is_superuser(user):
+    """
+    Check if a user has the Superuser status.
+    """
     return user.is_superuser
 
 
 #####
-# Log in and out
+# Log in, out and sign up
 #####
+
 def signup(request):
+    """
+    Sign up page.
+    """
     page_title = "Sign up"
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -40,24 +53,38 @@ def signup(request):
             messages.success(request, 'Account created successfully!')
             return redirect('index')
         else:
-            messages.error(request, 'Error creating the account. Please check the form and try again.')
+            messages.error(request, 'Error creating the account.'
+                                    ' Please check the form and try again.')
+
     else:
         form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form, 'page_title': page_title})
+    return render(request, 'signup.html', {
+        'form': form,
+        'page_title': page_title
+    })
 
 
 class UserLoginView(LoginView):
+    """
+    Custom login view class.
+    """
     template_name = 'login.html'
     success_url = reverse_lazy('index')
     authentication_form = AuthenticationForm
-    page_title = 'Login'  # Add the page title
+    page_title = 'Login'
 
     def get_context_data(self, **kwargs):
+        """
+        Get additional context data for the template.
+        """
         context = super().get_context_data(**kwargs)
-        context['page_title'] = self.page_title  # Pass the page title to the template
+        context['page_title'] = self.page_title
         return context
 
     def form_valid(self, form):
+        """
+        Handle the case when the login form is valid.
+        """
         user = form.get_user()
         login(self.request, user)
         messages.success(self.request, 'You are logged in!')
@@ -75,13 +102,16 @@ class UserLoginView(LoginView):
         if user is not None:
             login(request, user)
             messages.success(request, 'You are logged in!')
-            return super().form_valid(self.get_form())  # Redirect to the success_url
+            return super().form_valid(self.get_form())
         else:
             messages.error(request, 'Invalid login credentials.')
-            return super().form_invalid(self.get_form())  # Redirect back to the login page
+            return super().form_invalid(self.get_form())
 
 
 def logout_view(request):
+    """
+    View function to handle user logout.
+    """
     logout(request)
     messages.success(request, 'You are logged out!')
     return redirect('index')
@@ -90,11 +120,16 @@ def logout_view(request):
 #####
 # Books
 #####
+
+@login_required
 @permission_required('app_name.permission_name', login_url='/login/')
 def manager(request):
+    """
+    View function for the book manager page.
+    """
     page_title = "Manage book"
-    books = Book.objects.order_by('-created_on')  # Retrieve all books from the database
-    form = BookForm()  # Create an instance of the BookForm
+    books = Book.objects.order_by('-created_on')
+    form = BookForm()
 
     if request.method == 'POST':
         form = BookForm(request.POST)
@@ -103,33 +138,73 @@ def manager(request):
             messages.success(request, 'Book created successfully!')
             return redirect('manager')
 
-    return render(request, 'manager.html', {'page_title': page_title, 'books': books, 'form': form})
+    return render(request, 'manager.html', {
+        'page_title': page_title,
+        'books': books,
+        'form': form
+    })
 
 
+@login_required
 @user_passes_test(is_superuser, login_url='/login/')
 class ManagerView(View):
+    """
+    View function to update a book.
+    """
     def get(self, request):
         if not request.user.is_authenticated or not request.user.is_superuser:
-            messages.error(request, 'You need to be logged in as a librarian to access this page.')
+            messages.error(request, 'You need to be logged in as a '
+                                    'librarian to access this page.')
+
             return redirect('login')
 
         form = BookForm()
         return render(request, 'manager.html', {'form': form})
 
     def post(self, request):
-        form = BookForm(request.POST)  # Bind form data to the form instance
+        form = BookForm(request.POST)
 
         if form.is_valid():
-            book = form.save()  # Save the form data and create a new Book instance
+            book = form.save()
             messages.success(request, 'Book created successfully!')
             return redirect('book_detail')
         else:
-            messages.error(request, 'Error creating book. Please check the form.')
+            messages.error(
+                request, 'Error creating book. Please check the form.'
+            )
 
         return render(request, 'manager.html', {'form': form})
 
 
+@login_required
+@user_passes_test(is_superuser, login_url='/login/')
+def update_book(request, book_id):
+    """
+    View function to update a book.
+    """
+    page_title = "Update book"
+    book = get_object_or_404(Book, id=book_id)
+
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Book updated successfully!')
+            return redirect('manager')
+    else:
+        form = BookForm(instance=book)
+
+    return render(request, 'update_book.html', {
+        'form': form,
+        'book': book,
+        'page_title': page_title
+    })
+
+
 def book_detail(request, book_id):
+    """
+    View function for the book detail page.
+    """
     page_title = "Book club"
     book = get_object_or_404(Book, id=book_id)
     comments = Comment.objects.filter(book=book)
@@ -146,28 +221,20 @@ def book_detail(request, book_id):
             messages.success(request, 'Comment added successfully!')
             return redirect('book_detail', book_id=book_id)
 
-    return render(request, 'book_detail.html', {'book': book, 'comments': comments, 'form': form, 'page_title': page_title})
+    return render(request, 'book_detail.html', {
+        'book': book,
+        'comments': comments,
+        'form': form,
+        'page_title': page_title
+    })
 
 
-@user_passes_test(is_superuser, login_url='/login/')
-def update_book(request, book_id):
-    page_title = "Update book"
-    book = get_object_or_404(Book, id=book_id)
-
-    if request.method == 'POST':
-        form = BookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Book updated successfully!')
-            return redirect('manager')
-    else:
-        form = BookForm(instance=book)
-
-    return render(request, 'update_book.html', {'form': form, 'book': book, 'page_title': page_title})
-
-
+@login_required
 @user_passes_test(is_superuser, login_url='/login/')
 def delete_book(request, book_id):
+    """
+    Function to delete a book.
+    """
     book = get_object_or_404(Book, id=book_id)
     book.delete()
     messages.success(request, 'Book deleted!')
@@ -177,15 +244,19 @@ def delete_book(request, book_id):
 #####
 # Comments
 #####
+
 @login_required
 def add_comment(request, book_id):
+    """
+    View function to add a comment to a book.
+    """
     book = get_object_or_404(Book, pk=book_id)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.book_id = book_id
-            comment.user = request.user  # Set the user to the logged-in user's username
+            comment.user = request.user
             comment.save()
             messages.success(request, 'Comment created!')
             return redirect('book_detail', book_id=book_id)
@@ -197,6 +268,9 @@ def add_comment(request, book_id):
 
 @login_required
 def delete_comment(request, comment_id):
+    """
+    Function to delete a comment.
+    """
     comment = get_object_or_404(Comment, id=comment_id)
 
     # Check if the logged-in user is the owner of the comment
@@ -211,6 +285,7 @@ def delete_comment(request, comment_id):
 #####
 # Errors
 #####
+
 def page_not_found(request, exception):
     return render(request, 'errors/404.html', status=404)
 

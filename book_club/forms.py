@@ -5,6 +5,9 @@ from .models import Book, Comment
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Form for adding comments on books.
+    """
     content = forms.CharField(widget=forms.Textarea)
 
     class Meta:
@@ -12,6 +15,9 @@ class CommentForm(forms.ModelForm):
         fields = ('content',)
 
     def save(self, commit=True, **kwargs):
+        """
+        Save the comment instance.
+        """
         comment = super().save(commit=False)
         if 'user' in kwargs:
             comment.user = kwargs['user']
@@ -21,6 +27,9 @@ class CommentForm(forms.ModelForm):
 
 
 class SignUpForm(UserCreationForm):
+    """
+    Form for user sign-up.
+    """
     email = forms.EmailField()
 
     class Meta:
@@ -29,6 +38,9 @@ class SignUpForm(UserCreationForm):
 
 
 class BookForm(forms.ModelForm):
+    """
+    Form for creating or updating books.
+    """
     class Meta:
         model = Book
         fields = ['title', 'book_title', 'book_author', 'book_description']

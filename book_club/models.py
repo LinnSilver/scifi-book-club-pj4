@@ -1,12 +1,12 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-from django.utils import timezone
-from django.contrib.auth import get_user_model
-from django.utils.crypto import get_random_string
 
 
 class Book(models.Model):
+    """
+    Model representing a book in the application.
+    """
     title = models.CharField(max_length=200, null=False, blank=False)
     book_title = models.CharField(max_length=200, null=False, blank=False)
     book_author = models.CharField(max_length=100, null=False, blank=False)
@@ -34,7 +34,12 @@ class Book(models.Model):
 
 
 class Comment(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="comments")
+    """
+    Model representing comments on a book.
+    """
+    book = models.ForeignKey(
+        Book, on_delete=models.CASCADE, related_name="comments"
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     content = models.TextField(null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
