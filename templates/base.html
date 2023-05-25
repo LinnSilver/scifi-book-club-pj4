@@ -15,44 +15,45 @@
   <title>{{ page_title }}</title>
 </head>
 
+</head>
+
 <body>
   <!-- Hero Image -->
   <div class="hero-image" style="background-image: url('{% static 'images/galaxy.jpg' %}')"></div>
-  
-<!-- Header Section -->
-<div class="container-fluid">
-  <div class="row">
-    <div class="col bold">
-      <!-- header content -->
-      <div class="container-lg my-5 header">
-        <h1><a href="{% url 'index' %}" class="text-decoration-none">Sci Fi Book Club</a></h1>
+
+  <!-- Header Section -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col bold">
+        <!-- header content -->
+        <div class="container-lg my-5 header">
+          <h1><a href="{% url 'index' %}" class="text-decoration-none">Sci Fi Book Club</a></h1>
+        </div>
+        <!-- navigation menu -->
+        <ul class="nav justify-content-center text-center">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
+          </li>
+          {% if request.user.is_authenticated %}
+            <!-- User is logged in -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <!-- User is not logged in -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+          {% endif %}
+          {% if request.user.is_authenticated and request.user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'manager' %}">Manage Books</a>
+            </li>
+          {% endif %}
+        </ul>
       </div>
-      <!-- navigation menu -->
-      <ul class="nav justify-content-center text-center">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'index' %}">Home</a>
-        </li>
-        {% if request.user.is_authenticated %}
-          <!-- User is logged in -->
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-        {% else %}
-          <!-- User is not logged in -->
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-          </li>
-        {% endif %}
-        {% if request.user.is_authenticated and request.user.is_superuser %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'manager' %}">Manage Books</a>
-          </li>
-        {% endif %}
-      </ul>
     </div>
   </div>
-</div>
-
 
   <!-- Messages Section -->
   <div class="container-fluid">

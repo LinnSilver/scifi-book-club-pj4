@@ -1,6 +1,6 @@
 # Sci fi Book Club
 #### [View the live project here](https://scifi-book-club.herokuapp.com)
-Welcome to our Sci Fi Book Club website! Our primary goal is to create a vibrant online community where sci fi book enthusiasts can come together to read and discuss their favorite literary works.
+Welcome to my Sci Fi Book Club website! The primary goal is to create a vibrant online community where sci fi book enthusiasts can come together to read and discuss their favorite literary works.
 
 Upon visiting our home page, users are greeted with a captivating display of our current "Book of the Month,"  Additionally, they can easily explore our extensive archive of previous books, providing a wealth of inspiration for their next reading adventure.
 
@@ -9,13 +9,13 @@ Upon visiting our home page, users are greeted with a captivating display of our
 ## UX User experience
 ### Project Goals
 
-Build a website for a book club where members can read and discuss books together. The homepage features the current "Book of the Month" and previous book selections. Users can find book recommendations and engage in discussions with fellow members. Librarians can manage the book collection with CRUD functions, and users can leave comments on books. Create a dynamic and inspiring platform for book lovers to connect and explore literature.
+To build a website for a book club where members can read and discuss books together. The homepage features the current "Book of the Month" and previous book selections. Users can find book recommendations and engage in discussions with fellow members. Librarians can manage the book collection with CRUD functions, and users can leave comments on books. Create a dynamic and inspiring platform for book lovers to connect and explore literature.
 
 ### Strategy
 To ensure an efficient  development process, an Agile methodology was adopted for this project. Specifically, a Kanban approach was implemented using the GitHub Project feature, which allowed for better organization and tracking of tasks.
 
 ### Planning
-GitHub Project and Issues were used for Agile project planning. User Stories with acceptance criteria were defined in GitHub Issues, and development progress was managed on a Kanban board. Each User Story was linked to a parent Epic issue, showing their contribution to the project goal. Acceptance criteria were tested during development and documented in the final manual testing phase.
+GitHub Project and Issues were used for Agile project planning. User Stories with acceptance criteria were defined in GitHub Issues, and development progress was managed on a Kanban board.
 
 ### Epic
 As a book club member, I want to engage in meaningful discussions about books and connect with fellow readers to enhance my reading experience.
@@ -36,7 +36,12 @@ As a book club member, I want to engage in meaningful discussions about books an
 
 
 ## Design
-Beskrivning av designen, tanken bakom färgerna
+Creating a calm atmosphere that brings to mind space, the desert and places as far away as our imagination can stretch has been a basis in the design work. The colors and layout are chosen to be reminiscent of sand craters in a desolate landscape.
+
+To make it easier for the user, all links have an on hoover in a golden color. External links open in another window and the menu bar adapts to the user and the information that makes sense to see.
+
+The colors used are:
+![Colors](assets/images/color_wetsand.jpg)
 
 ### Wireframes
 Wireframes were created using Balsamiq during the planning phase to visualize the website's layout on desktop and mobile devices.
@@ -52,16 +57,24 @@ Wireframes were created using Balsamiq during the planning phase to visualize th
 
 
 ## Features
+
+###  Home page
+On the home page, all users can find the book of the month at the top and earlier books underneath. The page is responsive and display the page different depending on screen size.
+The text color of the books will change color to gold when  cursor focus.
+## ![Home](assets/images/home_p.jpg)
+
 ### Navigation bar
 The top navigation is display differently depending on user validation status. For a not logged in user I contain Home and Login. When logged in it changes to log out. For a logged in Liberian there is also a link to Manage Book.
 The links in the Top Nav will, as al other links and buttons, change color to gold when cursor focus.
 ## ![Navigation bar](assets/images/navigation.png)
 
+### Messages
+Throughout, the user will receive messages about various actions such as, you have logged in, comment deleted and book created successfully.
+## ![Messages](assets/images/messages.jpg)
+
 ### Log in
 The log in page contain a form with username and password. It will validate that the information provided is correct. A correct login redirect the user to home page and provides a message of success login.
-
 Just under the login button, there is also a link to Sign Up if not already.
-
 Both the link and button, change color to gold when  cursor focus.
 ## ![Log in](assets/images/login_p.jpg)
 
@@ -70,23 +83,18 @@ The sign-up page contains a form with username, password and a confirmation pass
 The button will change color to gold when  cursor focus.
 ## ![Sign up](assets/images/signup_p.jpg)
 
-###  Home page
-On the home page, all users can find the book of the month at the top and earlier books underneath. The page is responsive and display the page different depending on screen size.
-The text color of the books will change color to gold when  cursor focus.
-## ![]()
-
 ###  Display single book
 Om this page, all users can reed more about the book.
 A logged-in user can view comments and write a comment. A logged-in user can also delete comments written by them self. The different colored buttons will change color to gold when  cursor focus.
-## ![]()
+## ![Display book](assets/images/book_p.jpg)
 
 ###  Manage book page /Library
 On the Library page, a Liberian /superuser can create a new book by filling in the form. There is also a list of all books and by clicking a book a Liberian can edit or delete it. Before deleting, the page will ask if the user is sure. All Liberians can handle all books. The books in the list of books and different colored buttons will change color to gold when  cursor focus.
-## ![]()
+## ![Library](assets/images/managebook_p.jpg)
 
 ###  Fotter
 The footer tells the user that for contact and to discuss upcoming books, there is a Facebook page. The link opens in a new page, and for now it's Facebook homepage. The link text about Facebook will change color to gold when  cursor focus.
-## ![]()
+## ![Fotter](assets/images/footer_p.jpg)
 
 ###  Features to implement later
 Add hero image and the possibility to load up an image of the book when creating a new book.
@@ -121,10 +129,13 @@ Frameworks, Libraries and Programs Used:
 ## ![CSS validation](assets/images/lithouse.jpg)
 
 -   JSHint
+
+base.html, update_book.html, book_detail,html
 ## ![JShint validation](assets/images/jshint.jpg)
 
 -  CI Python Linter
-Forms.py, Models.py, Views.py
+
+forms.py, models.py, views.py
 ## ![CI Python Linter](assets/images/linter_py.jpg)
 
 
