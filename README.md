@@ -11,6 +11,10 @@ Upon visiting our home page, users are greeted with a captivating display of our
 
 To build a website for a book club where members can read and discuss books together. The homepage features the current "Book of the Month" and previous book selections. Users can find book recommendations and engage in discussions with fellow members. Librarians can manage the book collection with CRUD functions, and users can leave comments on books. Create a dynamic and inspiring platform for book lovers to connect and explore literature.
 
+Thees are two different user permissions.
+Regular users, anyone who wants can register an account to be able to leave comments on books and interact with other users.
+And then there are Librarians, they have access to the management part and can create, update and delete books. Admin appoints Librarians with Django's Admin panel
+
 ### Strategy
 To ensure an efficient  development process, an Agile methodology was adopted for this project. Specifically, a Kanban approach was implemented using the GitHub Project feature, which allowed for better organization and tracking of tasks.
 
@@ -95,6 +99,15 @@ On the Library page, a Liberian /superuser can create a new book by filling in t
 ###  Fotter
 The footer tells the user that for contact and to discuss upcoming books, there is a Facebook page. The link opens in a new page, and for now it's Facebook homepage. The link text about Facebook will change color to gold when  cursor focus.
 ## ![Fotter](assets/images/footer_p.jpg)
+
+###  Favicon
+Favicon icon on the tab in the browser. Makes it easier for the user to find the page if there are many open tabs.
+## ![Favicon](assets/images/favicon_p.jpg)
+
+###  Admin panel
+In Django admin panel, admin can give special user / librarian status of superuser. A librarian can create, edit and delete books. A librarian cannot log in to the Admin panel.
+Superuser status = Designates that this user has all permissions without explicitly assigning them.
+## ![Admin panel](assets/images/admin.jpg)
 
 ###  Features to implement later
 Add hero image and the possibility to load up an image of the book when creating a new book.

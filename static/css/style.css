@@ -143,6 +143,13 @@ label {
   margin-top: 10px;
 }
 
+.password {
+  list-style: none;
+  text-align: center;
+  padding: 0px;
+  margin-bottom: 20px;
+}
+
 /* Comment form */
 #comment-form .form-row {
   margin-bottom: 10px;
