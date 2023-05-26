@@ -112,6 +112,16 @@ Superuser status = Designates that this user has all permissions without explici
 ###  Features to implement later
 Add hero image and the possibility to load up an image of the book when creating a new book.
 
+## Data Model
+
+This project includes two custom models, Post and Comment.
+## ![Data Model](assets/images/data_model.jpg)
+
+## Site map
+Site map created in Jam bord.
+## ![Site map](assets/images/site_map.jpg)
+
+
 ## Technologies
 - HTML
 - CSS
